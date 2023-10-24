@@ -37,12 +37,15 @@ For a CalPoly student who needs to find a space to study. PolyNook is a website 
 ```console
 git clone ...
 ```
-You might need to initialize npm and install some dependencies
+Then please do the following
 ```console
+cd PolyNook
+cd react-frontend
 npm init
 npm install express 
 npm install jest
 ```
+Then you should be able to run the following scripts
 ### Scripts
 To start the frontend, go to front end folder and run:
 ```console
