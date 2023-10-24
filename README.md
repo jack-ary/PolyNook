@@ -40,6 +40,7 @@ git clone ...
 Then please do the following
 ```console
 cd PolyNook
+cd packages
 cd react-frontend
 npm init
 npm install express 
