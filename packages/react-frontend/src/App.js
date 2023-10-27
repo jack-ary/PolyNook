@@ -1,5 +1,6 @@
 
 import './App.css';
+import Search from './Search.js';
 
 const Banner = () => {
   return (
@@ -13,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <Banner />
+      <Search />
       <div className="content">
         {
           <div className="content">
