@@ -1,1 +1,7 @@
 node_modules
+packages/react-frontend/package.json
+packages/react-frontend/package-lock.json
+packages/server/package.json
+packages/server/package-lock.json
+packages/test/package.json
+packages/test/package-lock.json
