@@ -5,15 +5,15 @@
     "main": "server.test.js",
     "type": "module",
     "scripts": {
-      "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+        "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
     },
     "jest": {
-      "transform": {}
+        "transform": {}
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "cross-env": "^7.0.3",
-      "jest": "^29.7.0"
+        "cross-env": "^7.0.3",
+        "jest": "^29.7.0"
     }
-  }
+}

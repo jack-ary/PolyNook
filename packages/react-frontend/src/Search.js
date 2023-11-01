@@ -29,15 +29,16 @@ function Search(props) {
     }
 
     function submitForm(e) {
-        //props.handleSubmit(searchTerm);
+        props.handleSubmit(searchTerm);
+        e.preventDefault();
         //could reset search term in bar here if desired
     }
     return (
         <div style={main_style}>
-            <form onSubmit={submitForm} autoComplete='off' action='https://backend.com/search'> {/* Address should be changed for our backend */}
+            <form onSubmit={submitForm} autoComplete='off'> {/* Address should be changed for our backend */}
                 <label htmlFor='Search'>Search for Study Rooms: </label>
                 <input style={accent_style} type='text' name='searchName' id='searchName' value={searchTerm.searchName} onChange={handleChange} />
-                <input style={accent_style} type='submit' value="Submit Search" onClick={submitForm} />
+                <input style={accent_style} type='button' value="Submit Search" onClick={submitForm} />
             </form>
         </div>
     );
