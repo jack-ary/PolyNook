@@ -39,7 +39,13 @@ function App() {
     SearchDatabase(searchTerm).then(
       (response) => {
         if (response.status === 200){
-          response.json().then((value)=>{setBodyText(value)}).catch(error => console.log(error))
+          response.json()
+          .then(
+            (value)=>{
+              console.log(value);
+              setBodyText(JSON.stringify(value));
+            }
+          ).catch(error => console.log(error))
         }
       }
     ).catch(error => console.log(error));
@@ -54,7 +60,7 @@ function App() {
           <div className="content">
             <h1>Welcome to Poly Nook</h1>
             <p>Your resource for finding study spaces!</p>
-            <p>{bodyText.text}</p>
+            <p>{bodyText}</p>
           </div>
         }
       </div>
