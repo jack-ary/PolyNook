@@ -61,18 +61,48 @@ function Search(props) {
     const [searchTerm, setSearchTerm] = useState(
         {
             Building: "",
-            Schedule: ""
+            Schedule: "",
+            searchName: "",
+            hasComputers: false,
+            hasPrinters: false,
+            hasScanner: false,
+            hasPhotocopier: false,
+            hasUndergraduate: false,
+            hasGraduate: false
         }
     )
+    const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
     function handleChange(event) {
-        const {name, value} = event.target;
-        if (name === "searchName") {
-            //this should always be the case for now
+        const { name, type, checked, value } = event.target;
+
+        if (type === "checkbox") {
+            if (name === "showAdvancedOptions") {
+                setShowAdvancedOptions(checked);
+            
+                // Clear suboptions when "Show Advanced Options" is unchecked
+                if (!checked) {
+                    setSearchTerm({
+                        searchName: "",
+                        hasComputers: false,
+                        hasPrinters: false,
+                        hasScanner: false,
+                        hasPhotocopier: false,
+                        hasUndergraduate: false,
+                        hasGraduate: false
+                    });
+                }
+            } else {
+                // Handle checkbox for tools and degree level
+                setSearchTerm(prevState => ({
+                    ...prevState,
+                    [name]: checked
+                }));
+            }
+        } else if (name === "searchName") {
             setSearchTerm(
                 {Building: value,
-                Schedule: searchTerm.Schedule}
-            );
+                Schedule: searchTerm.Schedule});
         }
     }
 
@@ -96,9 +126,91 @@ function Search(props) {
             <form onSubmit={submitForm} autoComplete='off'> {/* Address should be changed for our backend */}
                 <label htmlFor='Search'>Search for Study Rooms: </label>
                 <input style={accent_style} type='text' name='searchName' id='searchName' value={searchTerm.searchName} onChange={handleChange} />
-                <input style={accent_style} type='button' value="Submit Search" onClick={submitForm} />
+
+                {/* Toggle for advanced options */}
+                <label>
+                    <input
+                        style={accent_style}
+                        type='checkbox'
+                        name='showAdvancedOptions'
+                        checked={showAdvancedOptions}
+                        onChange={handleChange}
+                    />
+                    Show Advanced Options
+                </label>
+
+                {/* Checkboxes for computers, printers, scanner, photocopier, only shown when the toggle switch is checked */}
+                {showAdvancedOptions && (
+                    <div>
+                        <p style={{ fontWeight: 'bold', margin: '0' }}>Tools Available</p>
+                        <label>
+                            <input
+                                style={accent_style}
+                                type='checkbox'
+                                name='hasComputers'
+                                checked={searchTerm.hasComputers}
+                                onChange={handleChange}
+                            />
+                            Computers
+                        </label>
+                        <label>
+                            <input
+                                style={accent_style}
+                                type='checkbox'
+                                name='hasPrinters'
+                                checked={searchTerm.hasPrinters}
+                                onChange={handleChange}
+                            />
+                            Printer
+                        </label>
+                        <label>
+                            <input
+                                style={accent_style}
+                                type='checkbox'
+                                name='hasScanner'
+                                checked={searchTerm.hasScanner}
+                                onChange={handleChange}
+                            />
+                            Scanner
+                        </label>
+                        <label>
+                            <input
+                                style={accent_style}
+                                type='checkbox'
+                                name='hasPhotocopier'
+                                checked={searchTerm.hasPhotocopier}
+                                onChange={handleChange}
+                            />
+                            Photocopier
+                        </label>
+
+                        {/* Heading for Degree Level */}
+                        <p style={{ fontWeight: 'bold', margin: '10px 0 0' }}>Degree Level</p>
+                        <label>
+                            <input
+                                style={accent_style}
+                                type='checkbox'
+                                name='hasUndergraduate'
+                                checked={searchTerm.hasUndergraduate}
+                                onChange={handleChange}
+                            />
+                            Undergraduate
+                        </label>
+                        <label>
+                            <input
+                                style={accent_style}
+                                type='checkbox'
+                                name='hasGraduate'
+                                checked={searchTerm.hasGraduate}
+                                onChange={handleChange}
+                            />
+                            Graduate
+                        </label>
+                    </div>
+                )}
             </form>
             <SearchParams handleTimeChange={handleDropdownChange}/>
+            <input style={accent_style} type='button' value="Submit Search" onClick={submitForm} />
         </div>
     );
 }
