@@ -30,9 +30,7 @@ const SearchDatabase = (searchTerm) => {
 
 function App() {
   const [bodyText, setBodyText] = useState(
-    {
-      text: ""
-    }
+    ""
   );
   const handleSearchSubmit = (searchTerm) => {
     console.log("We searched!");
@@ -51,6 +49,7 @@ function App() {
     ).catch(error => console.log(error));
     return;
   } 
+
   return (
     <div className="App">
       <Banner />
