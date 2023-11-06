@@ -13,7 +13,7 @@ const Banner = () => {
 
 const SearchDatabase = (searchTerm) => {
   const promise = fetch(
-    'http://backend.com/search/',
+    'http://backend.com/studyspaces/',
     {
       method: "POST",
       headers: {
