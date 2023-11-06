@@ -7,7 +7,12 @@ router.post('/studyspaces', async (req, res) =>{
     const input = req.body;
     const nooks = Schemas.Nooks;
 
-    const possibleSpaces = await nooks.find(input.Building).exec();
+    const possibleSpaces = await nooks.find(
+        { 
+            Building: { $regex: `^.*${input.Building}.*$`, $options: 'i' }
+        }
+    );
+    console.log(possibleSpaces);
     try{
         if (possibleSpaces.length > 0){
             res.status(200).json(possibleSpaces);
