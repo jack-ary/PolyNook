@@ -62,8 +62,10 @@ npm test
 ```
 ### Contributing
 Current coding standards:
-- No Single Quotes
-- No Trailing Commas 
+- Single Quotes
+- Trailing Commas: es5
+- tab width: 4
+- Semi: False
 
 Then you should be able to run the following scripts in packages/:
 ```console
