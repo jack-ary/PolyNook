@@ -60,6 +60,23 @@ For unit testing, go to test folder and run:
 ```console
 npm test
 ```
+### Contributing
+Current coding standards:
+- No Single Quotes
+- No Trailing Commas 
+
+Then you should be able to run the following scripts in packages/:
+```console
+npm install prettier eslint
+```
+```console
+ npm install eslint-config-prettier eslint-plugin-prettier prettier --save-dev
+```
+Run this command to ormat all files at once.
+```console
+npm run format
+```
+
 ### File Structure
 ```
 PolyNook
