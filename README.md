@@ -72,7 +72,7 @@ npm install prettier eslint
 ```console
  npm install eslint-config-prettier eslint-plugin-prettier prettier --save-dev
 ```
-Run this command to ormat all files at once.
+Run this command to format all files at once.
 ```console
 npm run format
 ```
