@@ -75,7 +75,6 @@ function App() {
     <div className="App">
       <Banner />
       <Search handleSubmit={handleSearchSubmit} />
-      <div className="content">
         <div className="content">
           <h1>Welcome to Poly Nook</h1>
           <p>Your resource for finding study spaces!</p>
@@ -83,7 +82,6 @@ function App() {
           {apiCallSuccessful ? <Output objectList={objectList} /> : <p></p>}
         </div>
       </div>
-    </div>
   );
 }
 
