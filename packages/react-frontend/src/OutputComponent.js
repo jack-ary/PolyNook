@@ -1,32 +1,69 @@
+import React from 'react'
+import './RegisterButton.css'
 
-import React from 'react';
-import './RegisterButton.css';
+function OutputComponent({ objectList }) {
+    const alertMessage = (input) => {
+        alert(input)
+    }
+    const registerForSpace = (roomId) => {
+        const promise = fetch(`http://localhost:8000/registerSpace/${roomId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        return promise
+    }
 
-  function OutputComponent({ objectList }) {
-    const handleClick = () => {
-      alert('Button clicked!');
-    };
+    function handleRegisterClick(event) {
+        const roomId = event.target.getAttribute('data-room-id')
+        registerForSpace(roomId)
+            .then((response) => {
+                if (response.status === 200) {
+                    alertMessage('Registered!')
+                    console.log('200 response')
+                } else {
+                    alertMessage('An error occured: ' + response.status)
+                }
+            })
+            .catch((error) => console.log(error))
+        return
+    }
+
     const renderedObjects = objectList.map((object, index) => (
         <div key={index}>
-          <h3>{object.RoomNumber + ", " + object.BuildingName}</h3>
-          <p>{"Schedule: " + (object.Schedule ? object.Schedule : "NA")}</p>
-          <p>{"Current Availability: " + (object.CurrentAvailability ? object.CurrentAvailability : "NA")}</p>
-          <p>{"Capacity: " + (object.Capacity ? object.Capacity : "NA")}</p>
-          <p>{"Degree Level: " + (object.DegreeLevel ? object.DegreeLevel : "NA")}</p>
-          <p>{"Major: " + (object.Major ? object.Major : "NA")}</p>
-          {object.Computer ? (<p>Has Computers</p>) : (<p>No Computers</p>)}
-          {object.AC ? (<p>Air Conditioned</p>) : (<p>No AC</p>)}
-          <button class="button-3" onClick={handleClick}>Register</button>
+            <h3>{object.RoomNumber + ', ' + object.BuildingName}</h3>
+            <p>{'Schedule: ' + (object.Schedule ? object.Schedule : 'NA')}</p>
+            <p>
+                {'Current Availability: ' +
+                    (object.CurrentAvailability
+                        ? object.CurrentAvailability
+                        : 'NA')}
+            </p>
+            <p>{'Capacity: ' + (object.Capacity ? object.Capacity : 'NA')}</p>
+            <p>
+                {'Degree Level: ' +
+                    (object.DegreeLevel ? object.DegreeLevel : 'NA')}
+            </p>
+            <p>{'Major: ' + (object.Major ? object.Major : 'NA')}</p>
+            {object.Computer ? <p>Has Computers</p> : <p>No Computers</p>}
+            {object.AC ? <p>Air Conditioned</p> : <p>No AC</p>}
+            <button
+                class="button-3"
+                id="registerButton"
+                data-room-id={object.id}
+                onClick={handleRegisterClick}
+            >
+                Register
+            </button>
         </div>
-      ));
+    ))
 
-  return (
-    <div className="outputStyle">
-      <div className="content">
-        {renderedObjects}
-      </div>
-    </div>
-  );
+    return (
+        <div className="outputStyle">
+            <div className="content">{renderedObjects}</div>
+        </div>
+    )
 }
 
-export default OutputComponent;
+export default OutputComponent
