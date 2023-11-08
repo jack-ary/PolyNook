@@ -1,6 +1,7 @@
 
 import './App.css';
 import Search from './Search.js';
+import Output from './OutputComponent.js';
 import React, {useState} from 'react';
 
 const Banner = () => {
@@ -26,12 +27,12 @@ const SearchDatabase = (searchTerm) => {
   return promise;
 }
 
-
-
 function App() {
   const [bodyText, setBodyText] = useState(
     ""
   );
+  const [apiCallSuccessful, setApiCallSuccessful] = useState(false);
+  const [objectList, setObjectList] = useState([]);
   const handleSearchSubmit = (searchTerm) => {
     console.log("We searched!");
     SearchDatabase(searchTerm).then(
@@ -41,9 +42,29 @@ function App() {
           .then(
             (value)=>{
               console.log(value);
-              setBodyText(JSON.stringify(value));
+              setApiCallSuccessful(true);
+              setBodyText("Search Completed");
+              const newList = value.map((object) => ({
+                BuildingName: object.Building,
+                RoomNumber: object.RoomNumber,
+                CurrentAvailability: object.CurrentAvailability,
+                Schedule: object.Schedule,
+                AC: object.AC,
+                Capacity: object.Capacity,
+                DegreeLevel: object.DegreeLevel,
+                Major: object.Major,
+                Computer: object.Computer,
+                id: object._id,
+              }));
+              setObjectList(newList);
             }
-          ).catch(error => console.log(error))
+          ).catch(error => console.log(error)); setApiCallSuccessful(false);
+        } else if (response.status === 404) {
+          setApiCallSuccessful(false);
+          setBodyText("Not Found");
+        } else {
+          setApiCallSuccessful(false);
+          setBodyText("An Unknown Error Occured");
         }
       }
     ).catch(error => console.log(error));
@@ -53,15 +74,14 @@ function App() {
   return (
     <div className="App">
       <Banner />
-      <Search handleSubmit={handleSearchSubmit}/>
+      <Search handleSubmit={handleSearchSubmit} />
       <div className="content">
-        {
-          <div className="content">
-            <h1>Welcome to Poly Nook</h1>
-            <p>Your resource for finding study spaces!</p>
-            <p>{bodyText}</p>
-          </div>
-        }
+        <div className="content">
+          <h1>Welcome to Poly Nook</h1>
+          <p>Your resource for finding study spaces!</p>
+          <p>{bodyText}</p>
+          {apiCallSuccessful ? <Output objectList={objectList} /> : <p></p>}
+        </div>
       </div>
     </div>
   );
