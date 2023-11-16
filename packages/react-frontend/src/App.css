@@ -1,10 +1,26 @@
 .App {
     text-align: center;
+    padding: 20px;
+    background-color: linear-gradient(to right, #4CAF50, #2E7D32);
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* .App-logo {
+    background-color: #282c34;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+} */
+
+.App-header {
+    background-color: #282c34;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.App-header h1 {
+    margin: 0;
+    color: #4CAF50;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -16,21 +32,45 @@
 .outputStyle {
     text-align: left;
     padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
+.App input[type="button"] {
+    background-color: #4caf50;
     color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.App input[type="button"]:hover {
+    background-color: #45a049;
+}
+
 
 .App-link {
     color: #61dafb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.App-link:hover {
+    text-decoration: underline;
+}
+
+.banner {
+    background: #167519;
+    padding: 20px;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid #2E7D32;
+    text-align: center;
 }
 
 @keyframes App-logo-spin {
