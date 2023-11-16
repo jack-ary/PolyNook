@@ -1,15 +1,15 @@
-import './App.css'
-import Search from './Search.js'
-import Output from './OutputComponent.js'
-import React, { useState } from 'react'
+import './App.css';
+import Search from './Search.js';
+import Output from './OutputComponent.js';
+import React, { useState } from 'react';
 
 const Banner = () => {
     return (
-        <div style={{ background: 'green', padding: '10px', color: 'white' }}>
+        <div className="banner">
             Poly Nook
         </div>
-    )
-}
+    );
+};
 
 const SearchDatabase = (searchTerm) => {
     const promise = fetch('http://localhost:8000/studyspaces/', {
@@ -18,26 +18,26 @@ const SearchDatabase = (searchTerm) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(searchTerm),
-    })
+    });
 
-    return promise
-}
+    return promise;
+};
 
 function App() {
-    const [bodyText, setBodyText] = useState('')
-    const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
-    const [objectList, setObjectList] = useState([])
+    const [bodyText, setBodyText] = useState('');
+    const [apiCallSuccessful, setApiCallSuccessful] = useState(false);
+    const [objectList, setObjectList] = useState([]);
     const handleSearchSubmit = (searchTerm) => {
-        console.log('We searched!')
+        console.log('We searched!');
         SearchDatabase(searchTerm)
             .then((response) => {
                 if (response.status === 200) {
                     response
                         .json()
                         .then((value) => {
-                            console.log(value)
-                            setApiCallSuccessful(true)
-                            setBodyText('Search Completed')
+                            console.log(value);
+                            setApiCallSuccessful(true);
+                            setBodyText('Search Completed');
                             const newList = value.map((object) => ({
                                 BuildingName: object.Building,
                                 RoomNumber: object.RoomNumber,
@@ -49,22 +49,22 @@ function App() {
                                 Major: object.Major,
                                 Computer: object.Computer,
                                 id: object._id,
-                            }))
-                            setObjectList(newList)
+                            }));
+                            setObjectList(newList);
                         })
-                        .catch((error) => console.log(error))
-                    setApiCallSuccessful(false)
+                        .catch((error) => console.log(error));
+                    setApiCallSuccessful(false);
                 } else if (response.status === 404) {
-                    setApiCallSuccessful(false)
-                    setBodyText('Not Found')
+                    setApiCallSuccessful(false);
+                    setBodyText('Not Found');
                 } else {
-                    setApiCallSuccessful(false)
-                    setBodyText('An Unknown Error Occured')
+                    setApiCallSuccessful(false);
+                    setBodyText('An Unknown Error Occurred');
                 }
             })
-            .catch((error) => console.log(error))
-        return
-    }
+            .catch((error) => console.log(error));
+        return;
+    };
 
     return (
         <div className="App">
@@ -81,7 +81,7 @@ function App() {
                 )}
             </div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
