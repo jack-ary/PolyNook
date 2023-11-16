@@ -230,66 +230,11 @@ function Search(props) {
                             style={accent_style}
                             type="checkbox"
                             name="major"
-                            value="CENG"
-                            checked={searchTerm.major === 'CENG'}
+                            value="CSC"
+                            checked={searchTerm.major === 'CSC'}
                             onChange={handleChange}
                         />
-                        <span style={{ marginLeft: '3px' }}>CENG</span>
-                    </label>
-                    <label>
-                        <input
-                            style={accent_style}
-                            type="checkbox"
-                            name="major"
-                            value="COSAM"
-                            checked={searchTerm.major === 'COSAM'}
-                            onChange={handleChange}
-                        />
-                        <span style={{ marginLeft: '3px' }}>COSAM</span>
-                    </label>
-                    <label>
-                        <input
-                            style={accent_style}
-                            type="checkbox"
-                            name="major"
-                            value="OCOB"
-                            checked={searchTerm.major === 'OCOB'}
-                            onChange={handleChange}
-                        />
-                        <span style={{ marginLeft: '3px' }}>OCOB</span>
-                    </label>
-                    <label>
-                        <input
-                            style={accent_style}
-                            type="checkbox"
-                            name="major"
-                            value="CAED"
-                            checked={searchTerm.major === 'CAED'}
-                            onChange={handleChange}
-                        />
-                        <span style={{ marginLeft: '3px' }}>CAED</span>
-                    </label>
-                    <label>
-                        <input
-                            style={accent_style}
-                            type="checkbox"
-                            name="major"
-                            value="CAFES"
-                            checked={searchTerm.major === 'CAFES'}
-                            onChange={handleChange}
-                        />
-                        <span style={{ marginLeft: '3px' }}>CAFES</span>
-                    </label>
-                    <label>
-                        <input
-                            style={accent_style}
-                            type="checkbox"
-                            name="major"
-                            value="CLA"
-                            checked={searchTerm.major === 'CLA'}
-                            onChange={handleChange}
-                        />
-                        <span style={{ marginLeft: '3px' }}>CLA</span>
+                        <span style={{ marginLeft: '3px' }}>CSC</span>
                     </label>
                         {/* Heading for Degree Level */}
                         <p style={{ fontWeight: 'bold', margin: '10px 0 0' }}>
