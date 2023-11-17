@@ -5,3 +5,4 @@ packages/server/package.json
 packages/server/package-lock.json
 packages/test/package.json
 packages/test/package-lock.json
+packages/react-frontend/package-lock.json
