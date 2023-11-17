@@ -2,6 +2,7 @@ import './App.css'
 import Search from './Search.js'
 import Output from './OutputComponent.js'
 import React, { useState } from 'react'
+import Auth from './Auth.js'
 
 const Banner = () => {
     return (
@@ -80,6 +81,7 @@ function App() {
                     <p></p>
                 )}
             </div>
+            <Auth />
         </div>
     )
 }
