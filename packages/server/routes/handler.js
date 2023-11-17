@@ -28,6 +28,13 @@ router.post('/registerSpace/:id', async (req, res) => {
     res.status(200).send('Registration successful')
 })
 
+router.post('/sendRating/:id/:value', async (req, res) => {
+    const roomId = req.params.id;
+    const Value = req.params.value;
+    console.log(`Received rating for ${roomId} with value ${Value}`);
+    res.status(200).send('Sent Rating successfully');
+});
+
 router.delete('/unregisterSpace/:id', async (req, res) => {
     const roomId = req.params.id
     console.log('Recieved request to unregister for space ' + roomId)

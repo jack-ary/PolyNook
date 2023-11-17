@@ -1,5 +1,6 @@
 import React from 'react'
 import './RegisterButton.css'
+import StarRating from './StarRating';
 
 function OutputComponent({ objectList }) {
     const alertMessage = (input) => {
@@ -7,6 +8,16 @@ function OutputComponent({ objectList }) {
     }
     const registerForSpace = (roomId) => {
         const promise = fetch(`http://localhost:8000/registerSpace/${roomId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        return promise
+    }
+
+    const sendRating = (value, roomId) => {
+        const promise = fetch(`http://localhost:8000/sendRating/${roomId}/${value}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,6 +41,20 @@ function OutputComponent({ objectList }) {
         return
     }
 
+    function handleStarClick(value, roomId){
+        sendRating(value, roomId)
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log('200 response')
+                } else {
+                    alertMessage('An error occured: ' + response.status)
+                }
+            })
+            .catch((error) => console.log(error))
+        return
+    };
+
+
     const renderedObjects = objectList.map((object, index) => (
         <div key={index}>
             <h3>{object.RoomNumber + ', ' + object.BuildingName}</h3>
@@ -48,6 +73,11 @@ function OutputComponent({ objectList }) {
             <p>{'Major: ' + (object.Major ? object.Major : 'NA')}</p>
             {object.Computer ? <p>Has Computers</p> : <p>No Computers</p>}
             {object.AC ? <p>Air Conditioned</p> : <p>No AC</p>}
+            <div>
+                <StarRating 
+                    roomId={object.id}
+                    onStarClick={handleStarClick} />
+            </div>
             <button
                 class="button-3"
                 id="registerButton"
@@ -57,6 +87,7 @@ function OutputComponent({ objectList }) {
                 Register
             </button>
         </div>
+        
     ))
 
     return (
