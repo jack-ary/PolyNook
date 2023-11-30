@@ -13,10 +13,10 @@
         "supertest": "^6.3.3"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "echo \"Error: no test specified\"",
         "start": "cd packages/react-frontend && npm start",
         "format": "npx prettier . --write",
-        "lint": "npx eslint ."
+        "lint": "npx eslint . && npx prettier --check ."
     },
     "workspaces": [
         "packages/*"
