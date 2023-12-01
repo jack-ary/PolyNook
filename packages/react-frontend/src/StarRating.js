@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 const StarRating = ({ onStarClick, roomId }) => {
   const [rating, setRating] = useState(0);
