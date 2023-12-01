@@ -13,53 +13,102 @@ const accent_style = {
 }
 
 export const SearchParams = (props) => {
-    const [timeRange, setTimeRange] = useState('')
-    const timesList = [
-        '7:10 am - 8:00 am',
-        '8:10 am - 9:00 am',
-        '9:10 am - 10:00 am',
-        '10:10 am - 11:00 am',
-        '11:10 am - 12:00 pm',
-        '12:10 pm - 1:00 pm',
-        '1:10 pm - 2:00 pm',
-        '2:10 pm - 3:00 pm',
-        '3:10 pm - 4:00 pm',
-        '4:10 pm - 5:00 pm',
-        '5:10 pm - 6:00 pm',
-        '6:10 pm - 7:00 pm',
-        '7:10 pm - 8:00 pm',
-        '8:10 pm - 9:00 pm',
-        '9:10 pm - 10:00 pm',
-        '10:10 pm - 11:00 pm',
+    const [startTime, setStartTime] = useState('');
+    const [endTime, setEndTime] = useState('');
+
+    const startTimesList = [
+        '7:10 am',
+        '8:10 am',
+        '9:10 am',
+        '10:10 am',
+        '11:10 am',
+        '12:10 pm',
+        '1:10 pm',
+        '2:10 pm',
+        '3:10 pm',
+        '4:10 pm',
+        '5:10 pm ',
+        '6:10 pm',
+        '7:10 pm',
+        '8:10 pm',
+        '9:10 pm',
+        '10:10 pm',
     ]
 
-    function onChange(e) {
-        setTimeRange(e.target.value)
-        console.log(e.target.value)
-        props.handleTimeChange(e.target.value)
+    const endTimesList = [
+        '8:00 am',
+        '9:00 am',
+        '10:00 am',
+        '11:00 am',
+        '12:00 pm',
+        '1:00 pm',
+        '2:00 pm',
+        '3:00 pm',
+        '4:00 pm',
+        '5:00 pm',
+        '6:00 pm',
+        '7:00 pm',
+        '8:00 pm',
+        '9:00 pm',
+        '10:00 pm',
+        '11:00 pm',
+    ]
+
+    function onChangeStartTime(e) {
+        setStartTime(e.target.value);
+        props.handleStartTimeChange(e.target.value);
+    }
+    
+    function onChangeEndTime(e) {
+        setEndTime(e.target.value);
+        props.handleEndTimeChange(e.target.value);
     }
 
     return (
-        <form>
-            <label htmlFor="Time Range" style={{ marginBottom: '10px', display: 'block' , fontSize: '17px'}}>
-                Select Time Range
-            </label>
-            <select
-                id="Time Range"
-                name="Time Range"
-                disabled={!timesList.length}
-                value={timeRange}
-                onChange={onChange}
-                style={{ width: '100%', padding: '8px', borderRadius: '5px' }}
-            >
-                <option value="" disabled>Select a time range</option>
-                {timesList.map((range) => (
-                    <option key={range} value={range}>
-                        {range}
-                    </option>
-                ))}
-            </select>
-        </form>
+        <div style={{ display: 'flex', gap: '20px' }}>
+            <form>
+                <label htmlFor="StartTime" style={{ marginBottom: '10px', display: 'block' , fontSize: '17px'}}>
+                    Start Time
+                </label>
+                <select
+                    id="StartTime"
+                    name="StartTime"
+                    disabled={!startTimesList.length}
+                    value={startTime}
+                    onChange={onChangeStartTime}
+                    style={{ width: '100%', padding: '8px', borderRadius: '5px' }}
+                >
+                    <option value="" disabled>Start Time</option>
+                    {startTimesList.map((range) => (
+                        <option key={range} value={range}>
+                            {range}
+                        </option>
+                    ))}
+                </select>
+            </form>
+
+            {/* End Time Elements */}
+            <form>
+                <label htmlFor="EndTime" style={{ marginBottom: '10px', display: 'block' , fontSize: '17px'}}>
+                    End Time
+                </label>
+                <select
+                    id="EndTime"
+                    name="EndTime"
+                    disabled={!endTimesList.length}
+                    value={endTime}
+                    onChange={onChangeEndTime}
+                    style={{ width: '100%', padding: '8px', borderRadius: '5px' }}
+                >
+                    <option value="" disabled>End Time</option>
+                    {endTimesList.map((range) => (
+                        <option key={range} value={range}>
+                            {range}
+                        </option>
+                    ))}
+                </select>
+            </form>
+        </div>
     );
 }
 
@@ -113,12 +162,32 @@ function Search(props) {
         }
     }
 
-    function handleDropdownChange(timerange) {
-        console.log(timerange)
-        setSearchTerm({
-            Building: searchTerm.Building,
-            Schedule: timerange,
-        })
+    function handleDropdownChange(timerange, isStartTime) {
+        setSearchTerm((prevState) => {
+          if (isStartTime) {
+            return {
+              ...prevState,
+              Schedule: timerange,
+            };
+          } else {
+            if (isEndTimeValid(prevState.Schedule, timerange)) {
+              return {
+                ...prevState,
+                Schedule: `${prevState.Schedule} - ${timerange}`,
+              };
+            } else {
+              // End time is not valid, ignore the update
+              return prevState;
+            }
+          }
+        });
+      }
+
+    function isEndTimeValid(startTime, endTime) {
+        const startDate = new Date(`2023-01-01 ${startTime}`);
+        const endDate = new Date(`2023-01-01 ${endTime}`);
+        
+        return startDate <= endDate;
     }
 
     function submitForm(e) {
@@ -264,7 +333,10 @@ function Search(props) {
                     </div>
                 )}
             </form>
-            <SearchParams handleTimeChange={handleDropdownChange} />
+            <SearchParams
+                handleStartTimeChange={(timerange) => handleDropdownChange(timerange, true)}
+                handleEndTimeChange={(timerange) => handleDropdownChange(timerange, false)}
+            />
             <input
                 style={{ ...accent_style, cursor: 'pointer', marginTop: '15px', padding: '12px 12px', fontSize: '13px' ,  width: '8%', border: '1px solid #ccc'}}
                 type="button"
