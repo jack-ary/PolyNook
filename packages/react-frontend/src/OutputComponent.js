@@ -1,6 +1,6 @@
 import React from 'react'
 import './RegisterButton.css'
-import StarRating from './StarRating';
+import StarRating from './StarRating'
 
 function OutputComponent({ objectList }) {
     const alertMessage = (input) => {
@@ -17,12 +17,15 @@ function OutputComponent({ objectList }) {
     }
 
     const sendRating = (value, roomId) => {
-        const promise = fetch(`http://localhost:8000/sendRating/${roomId}/${value}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        const promise = fetch(
+            `http://localhost:8000/sendRating/${roomId}/${value}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        )
         return promise
     }
 
@@ -41,7 +44,7 @@ function OutputComponent({ objectList }) {
         return
     }
 
-    function handleStarClick(value, roomId){
+    function handleStarClick(value, roomId) {
         sendRating(value, roomId)
             .then((response) => {
                 if (response.status === 200) {
@@ -52,8 +55,7 @@ function OutputComponent({ objectList }) {
             })
             .catch((error) => console.log(error))
         return
-    };
-
+    }
 
     const renderedObjects = objectList.map((object, index) => (
         <div key={index}>
@@ -74,12 +76,10 @@ function OutputComponent({ objectList }) {
             {object.Computer ? <p>Has Computers</p> : <p>No Computers</p>}
             {object.AC ? <p>Air Conditioned</p> : <p>No AC</p>}
             <div>
-                <StarRating 
-                    roomId={object.id}
-                    onStarClick={handleStarClick} />
+                <StarRating roomId={object.id} onStarClick={handleStarClick} />
             </div>
             <button
-                class="button-3"
+                className="button-3"
                 id="registerButton"
                 data-room-id={object.id}
                 onClick={handleRegisterClick}
@@ -87,7 +87,6 @@ function OutputComponent({ objectList }) {
                 Register
             </button>
         </div>
-        
     ))
 
     return (
