@@ -19,7 +19,7 @@ const StarRating = ({ onStarClick, roomId }) => {
 };
 
 const Star = ({ filled, onClick }) => (
-  <span style={{ color: filled ? 'orange' : 'gray', cursor: 'pointer' }} onClick={onClick}>
+  <span style={{ color: filled ? 'orange' : 'gray', cursor: 'pointer', fontSize: '1.3em' }} onClick={onClick}>
     ★
   </span>
 );
