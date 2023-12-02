@@ -1,7 +1,7 @@
 .App {
     text-align: center;
     padding: 20px;
-    background-color: linear-gradient(to right, #4CAF50, #2E7D32);
+    background-color: linear-gradient(to right, #4caf50, #2e7d32);
 }
 
 /* .App-logo {
@@ -20,7 +20,7 @@
 
 .App-header h1 {
     margin: 0;
-    color: #4CAF50;
+    color: #4caf50;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,7 +35,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.App input[type="button"] {
+.App input[type='button'] {
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -46,10 +46,9 @@
     transition: background-color 0.3s;
 }
 
-.App input[type="button"]:hover {
+.App input[type='button']:hover {
     background-color: #45a049;
 }
-
 
 .App-link {
     color: #61dafb;
@@ -69,7 +68,7 @@
     font-weight: bold;
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    border-bottom: 2px solid #2E7D32;
+    border-bottom: 2px solid #2e7d32;
     text-align: center;
 }
 

@@ -199,47 +199,90 @@ function Search(props) {
         //could reset search term in bar here if desired
     }
     return (
-        <div style={{ ...main_style, marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' , background: '#167519'}}>
+        <div
+            style={{
+                ...main_style,
+                marginTop: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                background: '#167519',
+            }}
+        >
             <form onSubmit={submitForm} autoComplete="off">
-                <div style={{ marginBottom: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}></div>
-                    <label htmlFor="searchName" style={{ marginBottom: '10px', fontSize: '16px', fontWeight: 'bold', color: 'white' }}>
-                        Search for Study Rooms:
-                    </label>
-                    {/* Search input */}
-                    <input
-                        style={{ ...accent_style, marginBottom: '10px', width: '250px', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', fontSize: '15px' }}
-                        type="text"
-                        name="searchName"
-                        id="searchName"
-                        value={searchTerm.searchName}
-                        onChange={handleChange}
-                        placeholder="Enter building name"
-                    />
+                <div
+                    style={{
+                        marginBottom: '15px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                ></div>
+                <label
+                    htmlFor="searchName"
+                    style={{
+                        marginBottom: '10px',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        color: 'white',
+                    }}
+                >
+                    Search for Study Rooms:
+                </label>
+                {/* Search input */}
+                <input
+                    style={{
+                        ...accent_style,
+                        marginBottom: '10px',
+                        width: '250px',
+                        padding: '8px',
+                        borderRadius: '5px',
+                        border: '1px solid #ccc',
+                        fontSize: '15px',
+                    }}
+                    type="text"
+                    name="searchName"
+                    id="searchName"
+                    value={searchTerm.searchName}
+                    onChange={handleChange}
+                    placeholder="Enter building name"
+                />
                 {/* "Show Advanced Options" checkbox */}
-                <label style={{ marginBottom: '5px', fontSize: '17px', color: 'white' }}>
+                <label
+                    style={{
+                        marginBottom: '5px',
+                        fontSize: '17px',
+                        color: 'white',
+                    }}
+                >
                     <input
                         type="checkbox"
                         name="showAdvancedOptions"
                         checked={showAdvancedOptions}
                         onChange={handleChange}
                     />
-                    <span style={{ marginLeft: '4px' }}>Show Advanced Options</span>
+                    <span style={{ marginLeft: '4px' }}>
+                        Show Advanced Options
+                    </span>
                 </label>
                 {/* Checkboxes for computers, printers, scanner, photocopier, only shown when the toggle switch is checked */}
                 {showAdvancedOptions && (
-                    <div style={{ marginBottom: '15px', paddingLeft: '20px'}}>
-                    <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>
-                        Tools Available
-                    </p>
-                    <label style={{ marginBottom: '5px' }}>
-                        <input
-                            style={accent_style}
-                            type="checkbox"
-                            name="hasComputers"
-                            checked={searchTerm.hasComputers}
-                            onChange={handleChange}
-                        />
-                        <span style={{ marginLeft: '3px' }}>Computer<span style={{ marginLeft: '3px' }}></span></span>
+                    <div style={{ marginBottom: '15px', paddingLeft: '20px' }}>
+                        <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>
+                            Tools Available
+                        </p>
+                        <label style={{ marginBottom: '5px' }}>
+                            <input
+                                style={accent_style}
+                                type="checkbox"
+                                name="hasComputers"
+                                checked={searchTerm.hasComputers}
+                                onChange={handleChange}
+                            />
+                            <span style={{ marginLeft: '3px' }}>
+                                Computer
+                                <span style={{ marginLeft: '3px' }}></span>
+                            </span>
                         </label>
                         <label>
                             <input
@@ -249,7 +292,10 @@ function Search(props) {
                                 checked={searchTerm.hasPrinters}
                                 onChange={handleChange}
                             />
-                            <span style={{ marginLeft: '3px' }}>Printer<span style={{ marginLeft: '3px' }}></span></span>
+                            <span style={{ marginLeft: '3px' }}>
+                                Printer
+                                <span style={{ marginLeft: '3px' }}></span>
+                            </span>
                         </label>
                         <label>
                             <input
@@ -259,7 +305,10 @@ function Search(props) {
                                 checked={searchTerm.hasScanner}
                                 onChange={handleChange}
                             />
-                            <span style={{ marginLeft: '3px' }}>Scanner<span style={{ marginLeft: '3px' }}></span></span>
+                            <span style={{ marginLeft: '3px' }}>
+                                Scanner
+                                <span style={{ marginLeft: '3px' }}></span>
+                            </span>
                         </label>
                         <label>
                             <input
@@ -269,7 +318,9 @@ function Search(props) {
                                 checked={searchTerm.hasPhotocopier}
                                 onChange={handleChange}
                             />
-                            <span style={{ marginLeft: '3px' }}>Photocopier</span>
+                            <span style={{ marginLeft: '3px' }}>
+                                Photocopier
+                            </span>
                         </label>
                         <p style={{ fontWeight: 'bold', margin: '10px 0 0' }}>
                             Air Conditioning
@@ -282,7 +333,9 @@ function Search(props) {
                                 checked={searchTerm.airConditioning}
                                 onChange={handleChange}
                             />
-                            <span style={{ marginLeft: '3px' }}>AC<span style={{ marginLeft: '3px' }}></span></span>
+                            <span style={{ marginLeft: '3px' }}>
+                                AC<span style={{ marginLeft: '3px' }}></span>
+                            </span>
                         </label>
                         <label>
                             <input
@@ -292,22 +345,24 @@ function Search(props) {
                                 checked={searchTerm.noConditioning}
                                 onChange={handleChange}
                             />
-                            <span style={{ marginLeft: '3px' }}>No AC<span style={{ marginLeft: '3px' }}></span></span>
+                            <span style={{ marginLeft: '3px' }}>
+                                No AC<span style={{ marginLeft: '3px' }}></span>
+                            </span>
                         </label>
                         <p style={{ fontWeight: 'bold', margin: '10px 0 0' }}>
                             Major
                         </p>
                         <label style={{ marginBottom: '5px' }}>
-                        <input
-                            style={accent_style}
-                            type="checkbox"
-                            name="major"
-                            value="CSC"
-                            checked={searchTerm.major === 'CSC'}
-                            onChange={handleChange}
-                        />
-                        <span style={{ marginLeft: '3px' }}>CSC</span>
-                    </label>
+                            <input
+                                style={accent_style}
+                                type="checkbox"
+                                name="major"
+                                value="CSC"
+                                checked={searchTerm.major === 'CSC'}
+                                onChange={handleChange}
+                            />
+                            <span style={{ marginLeft: '3px' }}>CSC</span>
+                        </label>
                         {/* Heading for Degree Level */}
                         <p style={{ fontWeight: 'bold', margin: '10px 0 0' }}>
                             Degree Level
@@ -321,7 +376,10 @@ function Search(props) {
                                 checked={searchTerm.hasUndergraduate}
                                 onChange={handleChange}
                             />
-                            <span style={{ marginLeft: '3px' }}>Undergraduate<span style={{ marginLeft: '3px' }}></span></span>
+                            <span style={{ marginLeft: '3px' }}>
+                                Undergraduate
+                                <span style={{ marginLeft: '3px' }}></span>
+                            </span>
                         </label>
                         <label>
                             <input
@@ -331,7 +389,10 @@ function Search(props) {
                                 checked={searchTerm.hasGraduate}
                                 onChange={handleChange}
                             />
-                            <span style={{ marginLeft: '3px' }}>Graduate<span style={{ marginLeft: '3px' }}></span></span>
+                            <span style={{ marginLeft: '3px' }}>
+                                Graduate
+                                <span style={{ marginLeft: '3px' }}></span>
+                            </span>
                         </label>
                     </div>
                 )}
@@ -341,13 +402,21 @@ function Search(props) {
                 handleEndTimeChange={(timerange) => handleDropdownChange(timerange, false)}
             />
             <input
-                style={{ ...accent_style, cursor: 'pointer', marginTop: '15px', padding: '12px 12px', fontSize: '13px' ,  width: '8%', border: '1px solid #ccc'}}
+                style={{
+                    ...accent_style,
+                    cursor: 'pointer',
+                    marginTop: '15px',
+                    padding: '12px 12px',
+                    fontSize: '13px',
+                    width: '8%',
+                    border: '1px solid #ccc',
+                }}
                 type="button"
                 value="Submit Search"
                 onClick={submitForm}
             />
         </div>
-    );
+    )
 }
 
 export default Search
