@@ -5,7 +5,7 @@ const Schemas = require('../models/Schemas.js')
 router.post('/studyspaces', async (req, res) => {
     const input = req.body
     const nooks = Schemas.Nooks
-
+    
     const possibleSpaces = await nooks.find({
         Building: { $regex: `^.*${input.Building}.*$`, $options: 'i' },
     })
