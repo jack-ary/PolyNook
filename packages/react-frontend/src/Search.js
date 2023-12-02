@@ -86,7 +86,9 @@ export const SearchParams = (props) => {
                     ))}
                 </select>
             </form>
-
+            <label>
+                -
+            </label>
             {/* End Time Elements */}
             <form>
                 <label htmlFor="EndTime" style={{ marginBottom: '10px', display: 'block' , fontSize: '17px'}}>
@@ -184,8 +186,9 @@ function Search(props) {
       }
 
     function isEndTimeValid(startTime, endTime) {
-        const startDate = new Date(`2023-01-01 ${startTime}`);
-        const endDate = new Date(`2023-01-01 ${endTime}`);
+        const dateString ='2023-01-01';
+        const startDate = new Date(`${dateString} ${startTime}`);
+        const endDate = new Date(`${dateString} ${endTime}`);
         
         return startDate <= endDate;
     }
