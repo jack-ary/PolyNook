@@ -13,8 +13,8 @@ const accent_style = {
 }
 
 export const SearchParams = (props) => {
-    const [startTime, setStartTime] = useState('');
-    const [endTime, setEndTime] = useState('');
+    const [startTime, setStartTime] = useState('')
+    const [endTime, setEndTime] = useState('')
 
     const startTimesList = [
         '7:10 am',
@@ -55,19 +55,26 @@ export const SearchParams = (props) => {
     ]
 
     function onChangeStartTime(e) {
-        setStartTime(e.target.value);
-        props.handleStartTimeChange(e.target.value);
+        setStartTime(e.target.value)
+        props.handleStartTimeChange(e.target.value)
     }
-    
+
     function onChangeEndTime(e) {
-        setEndTime(e.target.value);
-        props.handleEndTimeChange(e.target.value);
+        setEndTime(e.target.value)
+        props.handleEndTimeChange(e.target.value)
     }
 
     return (
         <div style={{ display: 'flex', gap: '20px' }}>
             <form>
-                <label htmlFor="StartTime" style={{ marginBottom: '10px', display: 'block' , fontSize: '17px'}}>
+                <label
+                    htmlFor="StartTime"
+                    style={{
+                        marginBottom: '10px',
+                        display: 'block',
+                        fontSize: '17px',
+                    }}
+                >
                     Start Time
                 </label>
                 <select
@@ -76,9 +83,15 @@ export const SearchParams = (props) => {
                     disabled={!startTimesList.length}
                     value={startTime}
                     onChange={onChangeStartTime}
-                    style={{ width: '100%', padding: '8px', borderRadius: '5px' }}
+                    style={{
+                        width: '100%',
+                        padding: '8px',
+                        borderRadius: '5px',
+                    }}
                 >
-                    <option value="" disabled>Start Time</option>
+                    <option value="" disabled>
+                        Start Time
+                    </option>
                     {startTimesList.map((range) => (
                         <option key={range} value={range}>
                             {range}
@@ -86,12 +99,17 @@ export const SearchParams = (props) => {
                     ))}
                 </select>
             </form>
-            <label>
-                -
-            </label>
+            <label>-</label>
             {/* End Time Elements */}
             <form>
-                <label htmlFor="EndTime" style={{ marginBottom: '10px', display: 'block' , fontSize: '17px'}}>
+                <label
+                    htmlFor="EndTime"
+                    style={{
+                        marginBottom: '10px',
+                        display: 'block',
+                        fontSize: '17px',
+                    }}
+                >
                     End Time
                 </label>
                 <select
@@ -100,9 +118,15 @@ export const SearchParams = (props) => {
                     disabled={!endTimesList.length}
                     value={endTime}
                     onChange={onChangeEndTime}
-                    style={{ width: '100%', padding: '8px', borderRadius: '5px' }}
+                    style={{
+                        width: '100%',
+                        padding: '8px',
+                        borderRadius: '5px',
+                    }}
                 >
-                    <option value="" disabled>End Time</option>
+                    <option value="" disabled>
+                        End Time
+                    </option>
                     {endTimesList.map((range) => (
                         <option key={range} value={range}>
                             {range}
@@ -111,7 +135,7 @@ export const SearchParams = (props) => {
                 </select>
             </form>
         </div>
-    );
+    )
 }
 
 function Search(props) {
@@ -166,31 +190,31 @@ function Search(props) {
 
     function handleDropdownChange(timerange, isStartTime) {
         setSearchTerm((prevState) => {
-          if (isStartTime) {
-            return {
-              ...prevState,
-              Schedule: timerange,
-            };
-          } else {
-            if (isEndTimeValid(prevState.Schedule, timerange)) {
-              return {
-                ...prevState,
-                Schedule: `${prevState.Schedule} - ${timerange}`,
-              };
+            if (isStartTime) {
+                return {
+                    ...prevState,
+                    Schedule: timerange,
+                }
             } else {
-              // End time is not valid, ignore the update
-              return prevState;
+                if (isEndTimeValid(prevState.Schedule, timerange)) {
+                    return {
+                        ...prevState,
+                        Schedule: `${prevState.Schedule} - ${timerange}`,
+                    }
+                } else {
+                    // End time is not valid, ignore the update
+                    return prevState
+                }
             }
-          }
-        });
-      }
+        })
+    }
 
     function isEndTimeValid(startTime, endTime) {
-        const dateString ='2023-01-01';
-        const startDate = new Date(`${dateString} ${startTime}`);
-        const endDate = new Date(`${dateString} ${endTime}`);
-        
-        return startDate <= endDate;
+        const dateString = '2023-01-01'
+        const startDate = new Date(`${dateString} ${startTime}`)
+        const endDate = new Date(`${dateString} ${endTime}`)
+
+        return startDate <= endDate
     }
 
     function submitForm(e) {
@@ -398,8 +422,12 @@ function Search(props) {
                 )}
             </form>
             <SearchParams
-                handleStartTimeChange={(timerange) => handleDropdownChange(timerange, true)}
-                handleEndTimeChange={(timerange) => handleDropdownChange(timerange, false)}
+                handleStartTimeChange={(timerange) =>
+                    handleDropdownChange(timerange, true)
+                }
+                handleEndTimeChange={(timerange) =>
+                    handleDropdownChange(timerange, false)
+                }
             />
             <input
                 style={{
