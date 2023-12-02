@@ -24,6 +24,7 @@ function App() {
     const [bodyText, setBodyText] = useState('')
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
+    const [profile, setProfile] = useState([])
     const handleSearchSubmit = (searchTerm) => {
         console.log('We searched!')
         SearchDatabase(searchTerm)
@@ -65,6 +66,7 @@ function App() {
 
     return (
         <div className="App">
+            <Auth profile={profile} setProfile={setProfile} />
             <Banner />
             <Search handleSubmit={handleSearchSubmit} />
             <div className="content">
@@ -72,12 +74,11 @@ function App() {
                 <p>Your resource for finding study spaces!</p>
                 <p>{bodyText}</p>
                 {apiCallSuccessful ? (
-                    <Output objectList={objectList} />
+                    <Output objectList={objectList} userEmail={profile.email} />
                 ) : (
                     <p></p>
                 )}
             </div>
-            <Auth />
         </div>
     )
 }

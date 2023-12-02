@@ -1,17 +1,14 @@
-import { useState } from 'react'
 import { googleLogout, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 
-function Auth() {
-    const [profile, setProfile] = useState([])
-
+function Auth({ profile, setProfile }) {
     function handleSignInResponse(response) {
         response = jwtDecode(response.credential)
         setProfile(response)
     }
 
     function logout() {
-        setProfile()
+        setProfile(null)
         googleLogout()
     }
 

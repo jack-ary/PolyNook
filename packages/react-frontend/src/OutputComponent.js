@@ -2,7 +2,7 @@ import React from 'react'
 import './RegisterButton.css'
 import StarRating from './StarRating'
 
-function OutputComponent({ objectList }) {
+function OutputComponent({ objectList, userEmail }) {
     const alertMessage = (input) => {
         alert(input)
     }
@@ -16,7 +16,7 @@ function OutputComponent({ objectList }) {
         return promise
     }
 
-    const sendRating = (value, roomId) => {
+    const sendRating = (value, roomId, email) => {
         const promise = fetch(
             `http://localhost:8000/sendRating/${roomId}/${value}`,
             {
@@ -24,6 +24,9 @@ function OutputComponent({ objectList }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    email: email,
+                }),
             }
         )
         return promise
@@ -45,7 +48,7 @@ function OutputComponent({ objectList }) {
     }
 
     function handleStarClick(value, roomId) {
-        sendRating(value, roomId)
+        sendRating(value, roomId, userEmail)
             .then((response) => {
                 if (response.status === 200) {
                     console.log('200 response')
