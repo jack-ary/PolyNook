@@ -9,7 +9,7 @@ const Banner = () => {
 }
 
 const SearchDatabase = (searchTerm) => {
-    const promise = fetch('http://polynook.azurewebsites.net/studyspaces/', {
+    const promise = fetch('https://polynook.azurewebsites.net/studyspaces/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
