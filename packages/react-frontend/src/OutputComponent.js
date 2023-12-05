@@ -58,7 +58,7 @@ function OutputComponent({ objectList }) {
     }
 
     const renderedObjects = objectList.map((object, index) => (
-        <div key={index}>
+        <div key={index} className="outputObject">
             <h3>{object.RoomNumber + ', ' + object.BuildingName}</h3>
             <p>{'Schedule: ' + (object.Schedule ? object.Schedule : 'NA')}</p>
             <p>
@@ -91,7 +91,7 @@ function OutputComponent({ objectList }) {
 
     return (
         <div className="outputStyle">
-            <div className="content">{renderedObjects}</div>
+            <div className="outputWrapper">{renderedObjects}</div>
         </div>
     )
 }
