@@ -1,15 +1,15 @@
 import './App.css'
 import Search from './Search.js'
 import Output from './OutputComponent.js'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Auth from './Auth.js'
 
 const Banner = () => {
-    return <div className="banner">Poly Nook</div>
+    return <div className="banner">PolyNook</div>
 }
 
 const SearchDatabase = (searchTerm) => {
-    const promise = fetch('http://localhost:8000/studyspaces/', {
+    const promise = fetch('https://polynook.azurewebsites.net/studyspaces/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -25,6 +25,10 @@ function App() {
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
     const [profile, setProfile] = useState([])
+    const [darkMode, setDarkMode] = useState(false)
+    useEffect(() => {
+        document.body.classList.toggle('dark-mode', darkMode)
+    }, [darkMode])
     const handleSearchSubmit = (searchTerm) => {
         console.log('We searched!')
         SearchDatabase(searchTerm)
@@ -63,9 +67,15 @@ function App() {
             .catch((error) => console.log(error))
         return
     }
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode)
+    }
 
     return (
-        <div className="App">
+        <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+            <div className="dark-mode-toggle" onClick={toggleDarkMode}>
+                {darkMode ? '☀️' : '🌙'}
+            </div>
             <Auth profile={profile} setProfile={setProfile} />
             <Banner />
             <Search handleSubmit={handleSearchSubmit} />
@@ -73,6 +83,7 @@ function App() {
                 <h1>Welcome to Poly Nook</h1>
                 <p>Your resource for finding study spaces!</p>
                 <p>{bodyText}</p>
+                <Auth />
                 {apiCallSuccessful ? (
                     <Output objectList={objectList} userEmail={profile.email} />
                 ) : (
