@@ -24,6 +24,7 @@ function App() {
     const [bodyText, setBodyText] = useState('')
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
+    const [profile, setProfile] = useState([])
     const [darkMode, setDarkMode] = useState(false)
     useEffect(() => {
         document.body.classList.toggle('dark-mode', darkMode)
@@ -75,6 +76,7 @@ function App() {
             <div className="dark-mode-toggle" onClick={toggleDarkMode}>
                 {darkMode ? '☀️' : '🌙'}
             </div>
+            <Auth profile={profile} setProfile={setProfile} />
             <Banner />
             <Search handleSubmit={handleSearchSubmit} />
             <div className="content">
@@ -83,7 +85,7 @@ function App() {
                 <p>{bodyText}</p>
                 <Auth />
                 {apiCallSuccessful ? (
-                    <Output objectList={objectList} />
+                    <Output objectList={objectList} userEmail={profile.email} />
                 ) : (
                     <p></p>
                 )}
