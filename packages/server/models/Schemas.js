@@ -4,52 +4,87 @@ const Schema = mongoose.Schema
 const nookSchema = new Schema({
     Building: {
         type: String,
-        required: true,
-        trim: true,
+        required: true
     },
     RoomNumber: {
-        type: String,
-        required: true,
-        trim: true,
+        type: Schema.Types.Mixed,
+        required: true
     },
     CurrentAvailability: {
         type: String,
-        required: true,
-        trim: true,
+        default: ''
     },
     Schedule: {
         type: String,
-        required: true,
-        trim: true,
+        required: true
     },
     Major: {
-        type: String,
-        required: true,
-        trim: true,
+        type: String
     },
-    DegreeLevel: {
+    Degree: {
         type: String,
-        required: true,
-        trim: true,
+        required: true
     },
     AC: {
-        type: Boolean,
-        required: true,
-        trim: true,
+        type: String,
+        enum: ['Yes', 'No'],
+        required: true
     },
     Computer: {
-        type: Boolean,
-        required: true,
-        trim: true,
+        type: String,
+        enum: ['Yes', 'No'],
+        required: true
     },
     Capacity: {
         type: Number,
-        required: true,
-        trim: true,
+        required: true
     },
-})
-// should we be splitting this up into bldg and rm#
+    Rating: {
+        type: String,
+        default: ''
+    },
+    RatingPop: {
+        type: Number
+    },
+    Registration: {
+        type: String
+    },
+    WeekdayTime: [{
+        type: String
+    }],
+    WeekendTime: [{
+        type: String
+    }]
+});
+
+const userSchema = new Schema({
+    Email: {
+        type: String,
+        required: true
+    },
+    RoomID: [{
+        type: String
+    }]
+});
+
+const ratingSchema = new Schema({
+    Email: {
+        type: String,
+        required: true
+    },
+    RoomID: {
+        type: String,
+        required: true
+    },
+    Rating: {
+        type: Number,
+        required: true
+    }
+});
 
 const Nooks = mongoose.model('study_spaces', nookSchema, 'study_spaces')
-const mySchemas = { Nooks: Nooks } // if we want to add more schemas
+const Ratings = mongoose.model('ratings_spaces', ratingSchema, 'ratings_spaces')
+const Users = mongoose.model('oauth_users', userSchema, 'oauth_users')
+
+const mySchemas = { Nooks: Nooks, Ratings: Ratings, Users: Users } // if we want to add more schemas
 module.exports = mySchemas
