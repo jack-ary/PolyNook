@@ -16,8 +16,7 @@ function Auth() {
     }
 
     return (
-        <div>
-            <h1>GoogleLogin</h1>
+        <div className="auth-container">
             {profile ? (
                 <div>
                     <img src={profile.picture} />

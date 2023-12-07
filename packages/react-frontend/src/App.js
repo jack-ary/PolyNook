@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import Auth from './Auth.js'
 
 const Banner = () => {
-    return <div className="banner">Poly Nook</div>
+    return <div className="banner">PolyNook</div>
 }
 
 const SearchDatabase = (searchTerm) => {
@@ -24,6 +24,7 @@ function App() {
     const [bodyText, setBodyText] = useState('')
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
+    const [darkMode, setDarkMode] = useState(false)
     const handleSearchSubmit = (searchTerm) => {
         console.log('We searched!')
         SearchDatabase(searchTerm)
@@ -62,22 +63,28 @@ function App() {
             .catch((error) => console.log(error))
         return
     }
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode)
+    }
 
     return (
-        <div className="App">
+        <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+            <div className="dark-mode-toggle" onClick={toggleDarkMode}>
+                {darkMode ? '☀️' : '🌙'}
+            </div>
             <Banner />
             <Search handleSubmit={handleSearchSubmit} />
             <div className="content">
                 <h1>Welcome to Poly Nook</h1>
                 <p>Your resource for finding study spaces!</p>
                 <p>{bodyText}</p>
+                <Auth />
                 {apiCallSuccessful ? (
                     <Output objectList={objectList} />
                 ) : (
                     <p></p>
                 )}
             </div>
-            <Auth />
         </div>
     )
 }
