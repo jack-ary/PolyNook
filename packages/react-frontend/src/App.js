@@ -1,13 +1,13 @@
 import './App.css'
 import Search from './Search.js'
 import Output from './OutputComponent.js'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Auth from './Auth.js'
 import Registrations from './Registrations.js'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 const Banner = () => {
-    return <div className="banner">Poly Nook</div>
+    return <div className="banner">PolyNook</div>
 }
 
 const SearchSection = (props) => {
@@ -45,6 +45,10 @@ function App() {
     const [profile, setProfile] = useState(null)
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
+    const [darkMode, setDarkMode] = useState(false)
+    useEffect(() => {
+        document.body.classList.toggle('dark-mode', darkMode)
+    }, [darkMode])
     const handleSearchSubmit = (searchTerm) => {
         console.log('We searched!')
         SearchDatabase(searchTerm)
@@ -83,9 +87,15 @@ function App() {
             .catch((error) => console.log(error))
         return
     }
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode)
+    }
 
     return (
-        <div className="App">
+        <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+            <div className="dark-mode-toggle" onClick={toggleDarkMode}>
+                {darkMode ? '☀️' : '🌙'}
+            </div>
             <Banner />
             <Auth profile={profile} setProfile={setProfile} />
             <Router>
