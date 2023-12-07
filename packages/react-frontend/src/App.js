@@ -1,7 +1,7 @@
 import './App.css'
 import Search from './Search.js'
 import Output from './OutputComponent.js'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Auth from './Auth.js'
 
 const Banner = () => {
@@ -25,6 +25,9 @@ function App() {
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
     const [darkMode, setDarkMode] = useState(false)
+    useEffect(() => {
+        document.body.classList.toggle('dark-mode', darkMode)
+    }, [darkMode])
     const handleSearchSubmit = (searchTerm) => {
         console.log('We searched!')
         SearchDatabase(searchTerm)

@@ -59,7 +59,17 @@ function OutputComponent({ objectList }) {
 
     const renderedObjects = objectList.map((object, index) => (
         <div key={index} className="outputObject">
-            <h3>{object.RoomNumber + ', ' + object.BuildingName}</h3>
+            <h3>
+                <a
+                    href={`https://www.google.com/maps/search/${encodeURIComponent(
+                        object.BuildingName
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {object.RoomNumber + ', ' + object.BuildingName}
+                </a>
+            </h3>
             <p>{'Schedule: ' + (object.Schedule ? object.Schedule : 'NA')}</p>
             <p>
                 {'Current Availability: ' +
