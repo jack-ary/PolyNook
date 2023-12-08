@@ -2,6 +2,12 @@ const express = require('express')
 const router = express.Router()
 const Schemas = require('../models/Schemas.js')
 
+router.post('/registrations', async (req, res) => {
+    //find the user with the given email
+    const input = req.body
+    const users = Schemas.Users
+})
+
 router.post('/studyspaces', async (req, res) => {
     const input = req.body
     const nooks = Schemas.Nooks

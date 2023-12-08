@@ -1,5 +1,4 @@
 function Registrations(props) {
-    
     return (
         <div>
             {props.profile == null ? (
