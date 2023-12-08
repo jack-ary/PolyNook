@@ -2,7 +2,7 @@ import React from 'react'
 import './RegisterButton.css'
 import StarRating from './StarRating'
 
-function OutputComponent({ objectList, profile}) {
+function OutputComponent({ objectList, profile }) {
     const alertMessage = (input) => {
         alert(input)
     }
@@ -13,8 +13,8 @@ function OutputComponent({ objectList, profile}) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                'email': email,
-            })
+                email: email,
+            }),
         })
         return promise
     }
@@ -28,7 +28,7 @@ function OutputComponent({ objectList, profile}) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    'email': email,
+                    email: email,
                 }),
             }
         )

@@ -6,10 +6,20 @@ router.post('/registrations', async (req, res) => {
     //find the user with the given email
     const input = req.body
     const users = Schemas.Users
+    const nooks = Schemas.Nooks
+    console.log("reg point hit")
 
     const potentials = await users.findOne({
         Email: input.email
-    })
+    }).RoomId
+
+    const rooms = await nooks.find({
+        _id: {$in: potentials}
+    }).toArray()
+
+    console.log(rooms)
+
+    res.send(rooms);
 })
 
 router.post('/studyspaces', async (req, res) => {
