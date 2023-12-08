@@ -10,7 +10,7 @@ router.post('/registrations', async (req, res) => {
     console.log("reg point hit")
 
     const potentials = await users.findOne({
-        Email: "urmom@gmail.com"
+        Email: input.email
     })
 
     console.log(potentials.SpaceList)
