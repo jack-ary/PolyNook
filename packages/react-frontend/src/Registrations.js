@@ -1,4 +1,11 @@
+import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 function Registrations(props) {
+    const location = useLocation()
+    useEffect(() => {
+        props.getRegistrations()
+    }, [location])
+
     const renderedObjects =
         props.registrations == null
             ? []
@@ -49,14 +56,10 @@ function Registrations(props) {
                 <h1>Please Login to use the Registrations Page.</h1>
             ) : (
                 <div>
-                    <h1>
-                        This is your registrations currently,{' '}
-                        <div className="outputStyle">
-                            <div className="outputWrapper">
-                                {renderedObjects}
-                            </div>
-                        </div>
-                    </h1>
+                    <h1>This is your registrations currently, </h1>
+                    <div className="outputStyle">
+                        <div className="outputWrapper">{renderedObjects}</div>
+                    </div>
                 </div>
             )}
         </div>
