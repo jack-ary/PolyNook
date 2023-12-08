@@ -10,7 +10,7 @@ const StarRating = ({ onStarClick, roomId }) => {
 
     return (
         <div>
-            <p>Current Rating: {rating}</p>
+            <p>Your Rating: {rating}</p>
             {[1, 2, 3, 4, 5].map((value) => (
                 <Star
                     key={value}

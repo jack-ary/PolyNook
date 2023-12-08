@@ -12,6 +12,9 @@ router.post('/registrations', async (req, res) => {
     const potentials = await users.findOne({
         Email: input.email
     })
+    if (potentials === null) {
+        res.status(200).json([])
+    }
 
     console.log(potentials.SpaceList)
     const rooms = await nooks.find({

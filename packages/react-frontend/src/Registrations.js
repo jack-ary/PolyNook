@@ -47,6 +47,7 @@ function Registrations(props) {
                           <p>No Computers</p>
                       )}
                       {object.AC ? <p>Air Conditioned</p> : <p>No AC</p>}
+                      <p>Current Rating: {object.Rating}</p>
                   </div>
               ))
 
@@ -56,7 +57,10 @@ function Registrations(props) {
                 <h1>Please Login to use the Registrations Page.</h1>
             ) : (
                 <div>
-                    <h1>This is your registrations currently, </h1>
+                    <h1>
+                        This is your registrations currently,{' '}
+                        {props.profile.name}
+                    </h1>
                     <div className="outputStyle">
                         <div className="outputWrapper">{renderedObjects}</div>
                     </div>
