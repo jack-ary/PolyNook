@@ -82,7 +82,7 @@ const ratingSchema = new Schema({
     }
 });
 
-const Nooks = mongoose.model('study_spaces', nookSchema, 'study_spaces')
+const Nooks = mongoose.model('study_dev', nookSchema, 'study_dev')
 const Ratings = mongoose.model('ratings_spaces', ratingSchema, 'ratings_spaces')
 const Users = mongoose.model('oauth_users', userSchema, 'oauth_users')
 
