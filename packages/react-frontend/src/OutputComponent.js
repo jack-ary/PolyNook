@@ -99,7 +99,6 @@ function OutputComponent(props) {
             </p>
             <p>{'Major: ' + (object.Major ? object.Major : 'NA')}</p>
             {object.Computer ? <p>Has Computers</p> : <p>No Computers</p>}
-            {object.AC ? <p>Air Conditioned</p> : <p>No AC</p>}
             <p>Air Conditioned: {object.AC}</p>
             <p>current rating: {object.Rating.slice(0,3)}</p>
             <div>
