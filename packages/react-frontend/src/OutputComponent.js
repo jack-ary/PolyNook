@@ -2,7 +2,7 @@ import React from 'react'
 import './RegisterButton.css'
 import StarRating from './StarRating'
 
-function OutputComponent({ objectList, profile }) {
+function OutputComponent(props) {
     const alertMessage = (input) => {
         alert(input)
     }
@@ -37,10 +37,10 @@ function OutputComponent({ objectList, profile }) {
 
     function handleRegisterClick(event) {
         const roomId = event.target.getAttribute('data-room-id')
-        if (profile === null) {
+        if (props.profile === null) {
             return
         }
-        registerForSpace(roomId, profile.email)
+        registerForSpace(roomId, props.profile.email)
             .then((response) => {
                 if (response.status === 200) {
                     alertMessage('Registered!')
@@ -54,10 +54,10 @@ function OutputComponent({ objectList, profile }) {
     }
 
     function handleStarClick(value, roomId) {
-        if (profile === null) {
+        if (props.profile === null) {
             return
         }
-        sendRating(value, roomId, profile.email)
+        sendRating(value, roomId, props.profile.email)
             .then((response) => {
                 if (response.status === 200) {
                     console.log('200 response')
@@ -69,7 +69,7 @@ function OutputComponent({ objectList, profile }) {
         return
     }
 
-    const renderedObjects = objectList.map((object, index) => (
+    const renderedObjects = props.objectList.map((object, index) => (
         <div key={index} className="outputObject">
             <h3>
                 <a

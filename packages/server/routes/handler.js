@@ -94,7 +94,7 @@ router.post('/studyspaces', async (req, res) => {
 
 router.post('/registerSpace/:id', async (req, res) => {
     const roomId = req.params.id
-    const email = req.params.email
+    const email = req.body.email
     const users = Schemas.Users
     console.log('Received request to register to space ' + roomId)
 

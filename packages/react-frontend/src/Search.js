@@ -13,28 +13,33 @@ const accent_style = {
 }
 
 function isEndTimeValid(startTime, endTime) {
-    if (startTime == '') 
-    {
+    if (startTime == '') {
         return true
     }
-    return (parseTimeString(startTime) <= parseTimeString(endTime));
+    return parseTimeString(startTime) <= parseTimeString(endTime)
 }
 
 function parseTimeString(timeString) {
     const currentDate = new Date()
     const [time, period] = timeString.split(' ')
-  
+
     let [hours, minutes] = time.split(':')
     hours = parseInt(hours)
     minutes = parseInt(minutes)
-  
+
     if (period.toLowerCase() === 'pm' && hours < 12) {
-      hours += 12
+        hours += 12
     } else if (period.toLowerCase() === 'am' && hours === 12) {
-      hours = 0
+        hours = 0
     }
-  
-    const parsedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes)
+
+    const parsedDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate(),
+        hours,
+        minutes
+    )
     return parsedDate
 }
 
@@ -86,11 +91,10 @@ export const SearchParams = (props) => {
     }
 
     function onChangeEndTime(e) {
-        if (isEndTimeValid(startTime, e.target.value)){
+        if (isEndTimeValid(startTime, e.target.value)) {
             setEndTime(e.target.value)
             props.handleEndTimeChange(e.target.value)
-        }
-        else{
+        } else {
             alert('Invalid end time selected')
         }
     }
@@ -225,7 +229,9 @@ function Search(props) {
             let splitArray = prevState.Schedule.split(' - ')
             // Set a default end time of 11:00 pm. The latest possible. Only a place holder until a real end time is selected
             const endTime = splitArray[1] ? splitArray[1] : '11:00 pm'
-            console.log('Start time inputted, schedule: ' + time + ' - ' + endTime)
+            console.log(
+                'Start time inputted, schedule: ' + time + ' - ' + endTime
+            )
             return {
                 ...prevState,
                 Schedule: `${time} - ${endTime}`,
@@ -245,12 +251,12 @@ function Search(props) {
                 }
             } else {
                 // End time is not valid, ignore the update
-                console.log(`Invalid end time, schedule: ${prevState.Schedule}`);
+                console.log(`Invalid end time, schedule: ${prevState.Schedule}`)
                 return prevState
             }
         })
     }
-    
+
     function submitForm(e) {
         props.handleSubmit(searchTerm)
         e.preventDefault()

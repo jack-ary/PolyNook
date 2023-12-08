@@ -31,7 +31,7 @@ const SearchSection = (props) => {
     )
 }
 const GetRegistrations = (email) => {
-    const promise = fetch('https://polynook.azurewebsites.net/registrations/', {
+    const promise = fetch('http://localhost:8000/registrations/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -96,6 +96,7 @@ function App() {
     const [objectList, setObjectList] = useState([])
     const [darkMode, setDarkMode] = useState(false)
     const [registrations_list, setRegistrations_list] = useState([])
+
     useEffect(() => {
         document.body.classList.toggle('dark-mode', darkMode)
     }, [darkMode])
@@ -103,6 +104,10 @@ function App() {
     useEffect(() => {
         handleProfileChange(profile, setRegistrations_list)
     }, [profile])
+
+    const refreshRegistrations = () => {
+        handleProfileChange(profile, setRegistrations_list)
+    }
 
     const handleSearchSubmit = (searchTerm) => {
         console.log('We searched!')
@@ -186,6 +191,7 @@ function App() {
                             <Registrations
                                 profile={profile}
                                 registrations={registrations_list}
+                                getRegistrations={refreshRegistrations}
                             />
                         }
                     />
