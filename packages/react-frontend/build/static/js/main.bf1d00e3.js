@@ -11912,17 +11912,15 @@
                                 t(e), r(e), l(e), a(e), o(e)
                             })
                 }
-            n
-                .createRoot(document.getElementById('root'))
-                .render(
-                    (0, r.jsx)(e.StrictMode, {
-                        children: (0, r.jsx)(f, {
-                            clientId:
-                                '548314815223-6q608gsctp5kqs3qigh58j3gm7m88p6n.apps.googleusercontent.com',
-                            children: (0, r.jsx)(w, {}),
-                        }),
-                    })
-                ),
+            n.createRoot(document.getElementById('root')).render(
+                (0, r.jsx)(e.StrictMode, {
+                    children: (0, r.jsx)(f, {
+                        clientId:
+                            '548314815223-6q608gsctp5kqs3qigh58j3gm7m88p6n.apps.googleusercontent.com',
+                        children: (0, r.jsx)(w, {}),
+                    }),
+                })
+            ),
                 S()
         })()
 })()

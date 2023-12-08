@@ -100,7 +100,7 @@ function OutputComponent(props) {
             <p>{'Major: ' + (object.Major ? object.Major : 'NA')}</p>
             {object.Computer ? <p>Has Computers</p> : <p>No Computers</p>}
             <p>Air Conditioned: {object.AC}</p>
-            <p>current rating: {object.Rating.slice(0,3)}</p>
+            <p>current rating: {object.Rating.slice(0, 3)}</p>
             <div>
                 <StarRating roomId={object.id} onStarClick={handleStarClick} />
             </div>
