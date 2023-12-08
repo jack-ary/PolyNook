@@ -428,7 +428,7 @@ function Search(props) {
                         </label>
                         {/* Heading for Degree Level */}
                         <p style={{ fontWeight: 'bold', margin: '10px 0 0' }}>
-                            Degree Level
+                            Degree
                         </p>
                         {/* Add styling for degree level checkboxes */}
                         <label style={{ marginBottom: '5px' }}>

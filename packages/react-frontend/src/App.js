@@ -161,25 +161,34 @@ function App() {
             <Router>
                 <nav
                     style={{
-                        padding: '30px 10%',
+                        padding: '15px 10%',
+                        textAlign: 'center',
                     }}
                 >
                     <ul>
                         <li
                             style={{
                                 display: 'inline-block',
-                                padding: '0px 20px',
+                                padding: '0px 50px',
+                                fontSize: '25px',
+                                fontWeight: 'bold',
                             }}
                         >
-                            <Link to="/">Search</Link>
+                            <Link to="/" className="nav-button">
+                                Search
+                            </Link>
                         </li>
                         <li
                             style={{
                                 display: 'inline-block',
-                                padding: '0px 20px',
+                                padding: '0px 40px',
+                                fontSize: '25px',
+                                fontWeight: 'bold',
                             }}
                         >
-                            <Link to="/registrations">Registrations</Link>
+                            <Link to="/registrations" className="nav-button">
+                                Registrations
+                            </Link>
                         </li>
                     </ul>
                 </nav>

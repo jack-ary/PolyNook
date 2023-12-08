@@ -1,4 +1,5 @@
 node_modules
+package-lock.json
 packages/react-frontend/package.json
 packages/react-frontend/package-lock.json
 packages/server/package.json
