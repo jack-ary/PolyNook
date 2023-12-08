@@ -89,7 +89,7 @@ function Registrations(props) {
                           data-room-id={object.id}
                           onClick={handleUnregisterClick}
                       >
-                          unRegister
+                          Unregister
                       </button>
                   </div>
               ))
