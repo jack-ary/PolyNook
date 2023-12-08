@@ -187,7 +187,6 @@ function Search(props) {
         airConditioning: false,
         noConditioning: false,
         major: '',
-        Schedule: '',
     })
     const [showAdvancedOptions, setShowAdvancedOptions] = useState(false)
 
