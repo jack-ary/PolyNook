@@ -19,7 +19,7 @@ const SearchSection = (props) => {
                 <p>Your resource for finding study spaces!</p>
                 <p>{props.bodyText}</p>
                 {props.apiCallSuccessful ? (
-                    <Output objectList={props.objectList} />
+                    <Output objectList={props.objectList} profile={props.profile}/>
                 ) : (
                     <p></p>
                 )}
@@ -28,16 +28,52 @@ const SearchSection = (props) => {
     )
 }
 const GetRegistrations = (email) => {
-    const promise = fetch('https://polynook.azurewebsites.net/registrations/', {
+    const promise = fetch('https://localhost:8000/registrations/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({email: email}),
+        body: JSON.stringify({ email: email }),
     })
 
     return promise
 }
+
+const handleProfileChange = (profile, setRegistrations_list) => {
+    if (profile === null) {
+        return
+    }
+
+    GetRegistrations(profile.email)
+        .then((response) => {
+            if (response.status === 200) {
+                response
+                    .json()
+                    .then((value) => {
+                        console.log(value)
+                        const newList = value.map((object) => ({
+                            BuildingName: object.Building,
+                            RoomNumber: object.RoomNumber,
+                            CurrentAvailability: object.CurrentAvailability,
+                            Schedule: object.Schedule,
+                            AC: object.AC,
+                            Capacity: object.Capacity,
+                            DegreeLevel: object.DegreeLevel,
+                            Major: object.Major,
+                            Computer: object.Computer,
+                            id: object._id,
+                        }))
+                        setRegistrations_list(newList)
+                    })
+                    .catch((error) => console.log(error))
+            } else {
+                return
+            }
+        })
+        .catch((error) => console.log(error))
+    return
+}
+
 const SearchDatabase = (searchTerm) => {
     const promise = fetch('https://polynook.azurewebsites.net/studyspaces/', {
         method: 'POST',
@@ -56,9 +92,15 @@ function App() {
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
     const [darkMode, setDarkMode] = useState(false)
+    const [registrations_list, setRegistrations_list] = useState([])
     useEffect(() => {
         document.body.classList.toggle('dark-mode', darkMode)
     }, [darkMode])
+
+    useEffect(() => {
+        handleProfileChange(profile, setRegistrations_list)
+    }, [profile])
+
     const handleSearchSubmit = (searchTerm) => {
         console.log('We searched!')
         SearchDatabase(searchTerm)
@@ -140,7 +182,7 @@ function App() {
                         element={
                             <Registrations
                                 profile={profile}
-                                registrations_list={[1, 2, 3]}
+                                registrations_list={registrations_list}
                             />
                         }
                     />
@@ -153,6 +195,7 @@ function App() {
                                 apiCallSuccessful={apiCallSuccessful}
                                 objectList={objectList}
                                 bodyText={bodyText}
+                                profile={profile}
                             />
                         }
                     />

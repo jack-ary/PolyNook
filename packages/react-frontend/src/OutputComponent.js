@@ -2,16 +2,19 @@ import React from 'react'
 import './RegisterButton.css'
 import StarRating from './StarRating'
 
-function OutputComponent({ objectList, userEmail }) {
+function OutputComponent({ objectList, profile}) {
     const alertMessage = (input) => {
         alert(input)
     }
-    const registerForSpace = (roomId) => {
+    const registerForSpace = (roomId, email) => {
         const promise = fetch(`http://localhost:8000/registerSpace/${roomId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            body: JSON.stringify({
+                'email': email,
+            })
         })
         return promise
     }
@@ -34,7 +37,10 @@ function OutputComponent({ objectList, userEmail }) {
 
     function handleRegisterClick(event) {
         const roomId = event.target.getAttribute('data-room-id')
-        registerForSpace(roomId)
+        if (profile === null) {
+            return
+        }
+        registerForSpace(roomId, profile.email)
             .then((response) => {
                 if (response.status === 200) {
                     alertMessage('Registered!')
@@ -48,7 +54,10 @@ function OutputComponent({ objectList, userEmail }) {
     }
 
     function handleStarClick(value, roomId) {
-        sendRating(value, roomId, userEmail)
+        if (profile === null) {
+            return
+        }
+        sendRating(value, roomId, profile.email)
             .then((response) => {
                 if (response.status === 200) {
                     console.log('200 response')
