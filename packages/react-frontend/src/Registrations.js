@@ -6,6 +6,41 @@ function Registrations(props) {
         props.getRegistrations()
     }, [location])
 
+    const unregisterForSpace = (roomId, email) => {
+        const promise = fetch(
+            `https://polynook.azurewebsites.net/unregisterSpace/${roomId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                }),
+            }
+        )
+        return promise
+    }
+
+    function handleUnregisterClick(event) {
+        const roomId = event.target.getAttribute('data-room-id')
+        if (props.profile === null) {
+            return
+        }
+        unregisterForSpace(roomId, props.profile.email)
+            .then((response) => {
+                if (response.status === 200) {
+                    alert('Unregistered!')
+                    console.log('200 response')
+                    props.getRegistrations()
+                } else {
+                    alert('An error occured: ' + response.status)
+                }
+            })
+            .catch((error) => console.log(error))
+        return
+    }
+
     const renderedObjects =
         props.registrations == null
             ? []
@@ -48,6 +83,14 @@ function Registrations(props) {
                       )}
                       {object.AC ? <p>Air Conditioned</p> : <p>No AC</p>}
                       <p>Current Rating: {object.Rating}</p>
+                      <button
+                          className="button-3"
+                          id="registerButton"
+                          data-room-id={object.id}
+                          onClick={handleUnregisterClick}
+                      >
+                          unRegister
+                      </button>
                   </div>
               ))
 

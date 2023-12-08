@@ -7,21 +7,24 @@ function OutputComponent(props) {
         alert(input)
     }
     const registerForSpace = (roomId, email) => {
-        const promise = fetch(`http://localhost:8000/registerSpace/${roomId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-            }),
-        })
+        const promise = fetch(
+            `https://polynook.azurewebsites.net/registerSpace/${roomId}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                }),
+            }
+        )
         return promise
     }
 
     const sendRating = (value, roomId, email) => {
         const promise = fetch(
-            `http://localhost:8000/sendRating/${roomId}/${value}`,
+            `https://polynook.azurewebsites.net/sendRating/${roomId}/${value}`,
             {
                 method: 'POST',
                 headers: {
