@@ -12,6 +12,32 @@ const accent_style = {
     margin: '3px',
 }
 
+function isEndTimeValid(startTime, endTime) {
+    if (startTime == '') 
+    {
+        return true
+    }
+    return (parseTimeString(startTime) <= parseTimeString(endTime));
+}
+
+function parseTimeString(timeString) {
+    const currentDate = new Date()
+    const [time, period] = timeString.split(' ')
+  
+    let [hours, minutes] = time.split(':')
+    hours = parseInt(hours)
+    minutes = parseInt(minutes)
+  
+    if (period.toLowerCase() === 'pm' && hours < 12) {
+      hours += 12
+    } else if (period.toLowerCase() === 'am' && hours === 12) {
+      hours = 0
+    }
+  
+    const parsedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes)
+    return parsedDate
+}
+
 export const SearchParams = (props) => {
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
@@ -60,8 +86,13 @@ export const SearchParams = (props) => {
     }
 
     function onChangeEndTime(e) {
-        setEndTime(e.target.value)
-        props.handleEndTimeChange(e.target.value)
+        if (isEndTimeValid(startTime, e.target.value)){
+            setEndTime(e.target.value)
+            props.handleEndTimeChange(e.target.value)
+        }
+        else{
+            alert('Invalid end time selected')
+        }
     }
 
     return (
@@ -152,6 +183,7 @@ function Search(props) {
         airConditioning: false,
         noConditioning: false,
         major: '',
+        Schedule: '',
     })
     const [showAdvancedOptions, setShowAdvancedOptions] = useState(false)
 
@@ -188,35 +220,37 @@ function Search(props) {
         }
     }
 
-    function handleDropdownChange(timerange, isStartTime) {
+    function handleStartTimeChange(time) {
         setSearchTerm((prevState) => {
-            if (isStartTime) {
-                return {
-                    ...prevState,
-                    Schedule: timerange,
-                }
-            } else {
-                if (isEndTimeValid(prevState.Schedule, timerange)) {
-                    return {
-                        ...prevState,
-                        Schedule: `${prevState.Schedule} - ${timerange}`,
-                    }
-                } else {
-                    // End time is not valid, ignore the update
-                    return prevState
-                }
+            let splitArray = prevState.Schedule.split(' - ')
+            // Set a default end time of 11:00 pm. The latest possible. Only a place holder until a real end time is selected
+            const endTime = splitArray[1] ? splitArray[1] : '11:00 pm'
+            console.log('Start time inputted, schedule: ' + time + ' - ' + endTime)
+            return {
+                ...prevState,
+                Schedule: `${time} - ${endTime}`,
             }
         })
     }
 
-    function isEndTimeValid(startTime, endTime) {
-        const dateString = '2023-01-01'
-        const startDate = new Date(`${dateString} ${startTime}`)
-        const endDate = new Date(`${dateString} ${endTime}`)
-
-        return startDate <= endDate
+    function handleEndTimeChange(time) {
+        setSearchTerm((prevState) => {
+            if (isEndTimeValid(prevState.Schedule, time)) {
+                let splitArray = prevState.Schedule.split(' - ')
+                const startTime = splitArray[0] ? splitArray[0] : '7:10 am'
+                console.log(`Valid end time, schedule: ${startTime} - ${time}`)
+                return {
+                    ...prevState,
+                    Schedule: `${startTime} - ${time}`,
+                }
+            } else {
+                // End time is not valid, ignore the update
+                console.log(`Invalid end time, schedule: ${prevState.Schedule}`);
+                return prevState
+            }
+        })
     }
-
+    
     function submitForm(e) {
         props.handleSubmit(searchTerm)
         e.preventDefault()
@@ -423,10 +457,10 @@ function Search(props) {
             </form>
             <SearchParams
                 handleStartTimeChange={(timerange) =>
-                    handleDropdownChange(timerange, true)
+                    handleStartTimeChange(timerange)
                 }
                 handleEndTimeChange={(timerange) =>
-                    handleDropdownChange(timerange, false)
+                    handleEndTimeChange(timerange)
                 }
             />
             <input
