@@ -19,7 +19,10 @@ const SearchSection = (props) => {
                 <p>Your resource for finding study spaces!</p>
                 <p>{props.bodyText}</p>
                 {props.apiCallSuccessful ? (
-                    <Output objectList={props.objectList} profile={props.profile}/>
+                    <Output
+                        objectList={props.objectList}
+                        profile={props.profile}
+                    />
                 ) : (
                     <p></p>
                 )}
@@ -28,7 +31,7 @@ const SearchSection = (props) => {
     )
 }
 const GetRegistrations = (email) => {
-    const promise = fetch('https://localhost:8000/registrations/', {
+    const promise = fetch('http://localhost:8000/registrations/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
