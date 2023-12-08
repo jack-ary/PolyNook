@@ -31,7 +31,7 @@ const SearchSection = (props) => {
     )
 }
 const GetRegistrations = (email) => {
-    const promise = fetch('http://localhost:8000/registrations/', {
+    const promise = fetch('https://polynook.azurewebsites.net/registrations/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
