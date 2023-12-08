@@ -96,9 +96,33 @@ router.post('/studyspaces', async (req, res) => {
 
 router.post('/registerSpace/:id', async (req, res) => {
     const roomId = req.params.id
+    const email = req.params.email
+    const users = Schemas.Users
     console.log('Received request to register to space ' + roomId)
-    res.status(200).send('Registration successful')
-})
+
+    try {
+        let user = await users.findOne({ Email: email });
+
+        if (user) {
+            if (!user.SpaceList.includes(roomId)) {
+                user.SpaceList.push(roomId);
+                await user.save();
+            }
+        } else {
+            user = new users({
+                Email: email,
+                SpaceList: [roomId]
+            });
+            await user.save();
+        }
+
+        console.log('Received request to register to space ' + roomId);
+        res.status(200).send('Registration successful');
+    } catch (error) {
+        console.error('Error in /registerSpace:', error);
+        res.status(500).send('Internal Server Error: Could not register');
+    }
+});
 
 router.post('/sendRating/:id/:value', async (req, res) => {
     const nooks = Schemas.Nooks
