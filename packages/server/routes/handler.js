@@ -160,9 +160,26 @@ router.post('/sendRating/:id/:value', async (req, res) => {
 
 router.delete('/unregisterSpace/:id', async (req, res) => {
     const roomId = req.params.id
+    const email = req.body.email
+    const users = Schemas.Users
     console.log('Recieved request to unregister for space ' + roomId)
-    res.status(200).send('Registration Cancellation successful')
-})
+    try {
+        const user = await users.findOne({ Email: email });
+        if (!user) {
+            return res.status(404).send('User not found.');
+        }
+
+        const index = user.SpaceList.indexOf(roomId);
+        if (index > -1) {
+            user.SpaceList.splice(index, 1);
+            await user.save();
+        }
+        console.log('Received request to unregister for space ' + roomId);
+        res.status(200).send('Registration Cancellation successful');
+    } catch (error) {
+        res.status(500).send('Internal Server Error: Could not unregister');
+    }
+});
 
 router.get('/', async (req, res) => {
     res.send('Hello World!')
