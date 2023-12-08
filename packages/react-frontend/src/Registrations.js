@@ -82,7 +82,7 @@ function Registrations(props) {
                           <p>No Computers</p>
                       )}
                       {object.AC ? <p>Air Conditioned</p> : <p>No AC</p>}
-                      <p>Current Rating: {object.Rating}</p>
+                      <p>Current Rating: {object.Rating.slice(0,3)}</p>
                       <button
                           className="button-3"
                           id="registerButton"

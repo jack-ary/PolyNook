@@ -132,6 +132,7 @@ function App() {
                                 Major: object.Major,
                                 Computer: object.Computer,
                                 id: object._id,
+                                Rating: object.Rating,
                             }))
                             setObjectList(newList)
                         })
