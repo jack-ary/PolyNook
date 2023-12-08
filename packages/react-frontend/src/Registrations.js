@@ -46,7 +46,7 @@ function Registrations(props) {
     return (
         <div>
             {props.profile == null || props.registrations == null ? (
-                <h1>Please, Login to use the Registrations Page.</h1>
+                <h1>Please Login to use the Registrations Page.</h1>
             ) : (
                 <div>
                     <h1>

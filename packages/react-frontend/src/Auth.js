@@ -40,6 +40,8 @@ function Auth(props) {
                             display: 'inline-block',
                             padding: '0px 20px',
                             justifyContent: 'center',
+                            margin: '0',
+                            fontSize: '20px',
                         }}
                     >
                         Please, Sign In To Use The Full PolyNook Service:
