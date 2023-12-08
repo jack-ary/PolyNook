@@ -65,6 +65,7 @@ const handleProfileChange = (profile, setRegistrations_list) => {
                             Major: object.Major,
                             Computer: object.Computer,
                             id: object._id,
+                            Rating: object.Rating,
                         }))
                         setRegistrations_list(newList)
                     })
