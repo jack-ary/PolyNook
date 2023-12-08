@@ -3,11 +3,41 @@ import Search from './Search.js'
 import Output from './OutputComponent.js'
 import React, { useState, useEffect } from 'react'
 import Auth from './Auth.js'
+import Registrations from './Registrations.js'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 const Banner = () => {
     return <div className="banner">PolyNook</div>
 }
 
+const SearchSection = (props) => {
+    return (
+        <div>
+            <Search handleSubmit={props.handleSearchSubmit} />
+            <div className="content">
+                <h1>Welcome to Poly Nook</h1>
+                <p>Your resource for finding study spaces!</p>
+                <p>{props.bodyText}</p>
+                {props.apiCallSuccessful ? (
+                    <Output objectList={props.objectList} />
+                ) : (
+                    <p></p>
+                )}
+            </div>
+        </div>
+    )
+}
+const GetRegistrations = (email) => {
+    const promise = fetch('https://polynook.azurewebsites.net/registrations/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email: email}),
+    })
+
+    return promise
+}
 const SearchDatabase = (searchTerm) => {
     const promise = fetch('https://polynook.azurewebsites.net/studyspaces/', {
         method: 'POST',
@@ -21,10 +51,10 @@ const SearchDatabase = (searchTerm) => {
 }
 
 function App() {
-    const [bodyText, setBodyText] = useState('')
+    const [bodyText, setBodyText] = useState()
+    const [profile, setProfile] = useState(null)
     const [apiCallSuccessful, setApiCallSuccessful] = useState(false)
     const [objectList, setObjectList] = useState([])
-    const [profile, setProfile] = useState([])
     const [darkMode, setDarkMode] = useState(false)
     useEffect(() => {
         document.body.classList.toggle('dark-mode', darkMode)
@@ -76,20 +106,58 @@ function App() {
             <div className="dark-mode-toggle" onClick={toggleDarkMode}>
                 {darkMode ? '☀️' : '🌙'}
             </div>
-            <Auth profile={profile} setProfile={setProfile} />
             <Banner />
-            <Search handleSubmit={handleSearchSubmit} />
-            <div className="content">
-                <h1>Welcome to Poly Nook</h1>
-                <p>Your resource for finding study spaces!</p>
-                <p>{bodyText}</p>
-                <Auth />
-                {apiCallSuccessful ? (
-                    <Output objectList={objectList} userEmail={profile.email} />
-                ) : (
-                    <p></p>
-                )}
-            </div>
+            <Auth profile={profile} setProfile={setProfile} />
+            <Router>
+                <nav
+                    style={{
+                        padding: '30px 10%',
+                    }}
+                >
+                    <ul>
+                        <li
+                            style={{
+                                display: 'inline-block',
+                                padding: '0px 20px',
+                            }}
+                        >
+                            <Link to="/">Search</Link>
+                        </li>
+                        <li
+                            style={{
+                                display: 'inline-block',
+                                padding: '0px 20px',
+                            }}
+                        >
+                            <Link to="/registrations">Registrations</Link>
+                        </li>
+                    </ul>
+                </nav>
+                <Routes>
+                    <Route
+                        exact
+                        path="/registrations"
+                        element={
+                            <Registrations
+                                profile={profile}
+                                registrations_list={[1, 2, 3]}
+                            />
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/"
+                        element={
+                            <SearchSection
+                                handleSearchSubmit={handleSearchSubmit}
+                                apiCallSuccessful={apiCallSuccessful}
+                                objectList={objectList}
+                                bodyText={bodyText}
+                            />
+                        }
+                    />
+                </Routes>
+            </Router>
         </div>
     )
 }
