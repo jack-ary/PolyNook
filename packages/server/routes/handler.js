@@ -10,16 +10,17 @@ router.post('/registrations', async (req, res) => {
     console.log("reg point hit")
 
     const potentials = await users.findOne({
-        Email: input.email
-    }).RoomId
+        Email: "urmom@gmail.com"
+    })
 
+    console.log(potentials.SpaceList)
     const rooms = await nooks.find({
-        _id: {$in: potentials}
-    }).toArray()
+        _id: {$in: potentials.SpaceList}
+    })
 
     console.log(rooms)
 
-    res.send(rooms);
+    res.status(200).json(rooms);
 })
 
 router.post('/studyspaces', async (req, res) => {
@@ -63,10 +64,7 @@ router.post('/studyspaces', async (req, res) => {
         };
     }
     
-    //console.log("QUERY:")
-    //for (const [key, value] of Object.entries(query)) {
-    //    console.log(`${key}: ${value}`);
-    //}
+
     const possibleSpaces = await nooks.find(query)
 
     try {

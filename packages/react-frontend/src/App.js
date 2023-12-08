@@ -185,7 +185,7 @@ function App() {
                         element={
                             <Registrations
                                 profile={profile}
-                                registrations_list={registrations_list}
+                                registrations={registrations_list}
                             />
                         }
                     />
