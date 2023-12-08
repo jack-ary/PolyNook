@@ -27,7 +27,17 @@ const SearchSection = (props) => {
         </div>
     )
 }
+const GetRegistrations = (email) => {
+    const promise = fetch('https://polynook.azurewebsites.net/registrations/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email: email}),
+    })
 
+    return promise
+}
 const SearchDatabase = (searchTerm) => {
     const promise = fetch('https://polynook.azurewebsites.net/studyspaces/', {
         method: 'POST',
