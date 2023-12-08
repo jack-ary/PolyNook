@@ -18,6 +18,7 @@ function Auth(props) {
                 <div
                     style={{
                         display: 'flex-box',
+                        justifyContent: 'center',
                     }}
                 >
                     <img src={props.profile.picture} />

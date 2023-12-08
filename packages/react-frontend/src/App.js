@@ -161,7 +161,7 @@ function App() {
             <Router>
                 <nav
                     style={{
-                        padding: '15px 10%',
+                        padding: '30px 10%',
                         textAlign: 'center',
                     }}
                 >
