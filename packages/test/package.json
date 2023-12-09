@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "description": "",
     "main": "server.test.js",
-    "type": "module",
     "scripts": {
         "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
     },
