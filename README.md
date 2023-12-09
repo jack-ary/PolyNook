@@ -4,6 +4,8 @@ Collaborators: Ivanreet Kaur, Supriya Mandava, Jack Ary, Nick Hotelling, Spruha 
 ## Product Vision
 For a CalPoly student who needs to find a space to study. PolyNook is a website that can locate rooms to study in. Our primary competitor is 25Live. Unlike 25Live we will have an more approachable UI that provides essential and only mentions spaces that are not occupied, which is the inverse of our competitor. PolyNook is a more sophisticated and user-centric/friendly platform.
 
+##UI Prototype: https://github.com/jack-ary/PolyNook/blob/main/UI%20prototype%20image
+
 ## Developer Wiki
 [Getting started](#getting-started)<br>
 [Scripts](#scripts)<br>
