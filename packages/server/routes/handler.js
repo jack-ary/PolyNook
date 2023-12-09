@@ -12,9 +12,6 @@ router.post('/registrations', async (req, res) => {
     const potentials = await users.findOne({
         Email: input.email
     })
-    if (potentials === null) {
-        res.status(200).json([])
-    }
 
     console.log(potentials.SpaceList)
     const rooms = await nooks.find({
@@ -30,51 +27,7 @@ router.post('/studyspaces', async (req, res) => {
     const input = req.body
     const nooks = Schemas.Nooks
 
-    function convertTo24Hour(time12h, range) {
-        const [time, modifier] = time12h.split(' ');
-        let [hours, minutes] = time.split(':');
-        if (hours === '12') {
-            hours = '00';
-        }
-        if (modifier === 'pm') {
-            hours = parseInt(hours, 10) + 12;
-        }
-        if (range === 'end') {
-            hours = parseInt(hours, 10) - 1;
-            if (hours < 0) hours = 23;
-        }
-        return `${hours}`;
-    }
-
-    let query = {
-        Building: { $regex: `^.*${input.Building}.*$`, $options: 'i' }
-    };
-
-    if (input.hasComputers === 'on') query.Computer = "Yes";
-    if (input.major === 'CSC') query.Major = 'CSC';
-    if (input.hasUndergraduate === 'on') 
-        query.Degree = "Undergrad";
-    else if (input.hasGraduate === 'on') 
-        query.Degree = "Grad";
-    
-    if (input.hasPrinters === 'on') query.Printer = "Yes";
-    if (input.hasScanner === 'on') query.Scanner = "Yes";
-    if (input.hasPhotocopier === 'on') query.Photocopier = "Yes";
-
-    if (input.airConditioning === 'on') 
-        query.AirConditioning = "Yes";
-    else if (input.noConditioning === 'on') 
-        query.AirConditioning = "No";
-
-    if (input.Schedule !== "") {
-        const [startTime12h, endTime12h] = input.Schedule.split(' - ');
-        const startTime24h = convertTo24Hour(startTime12h, 'start');
-        const endTime24h = convertTo24Hour(endTime12h, 'end');
-        console.log(`start time is: ${startTime24h} and end time ${endTime24h}`)
-        query.WeekdayTime = { 
-            $all: [`${startTime24h}:10`, `${endTime24h}:10`] 
-        };
-    }
+    const query = buildStudySpacesQuery(input)
 
     const possibleSpaces = await nooks.find(query)
 
@@ -89,6 +42,59 @@ router.post('/studyspaces', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' })
     }
 })
+
+function buildStudySpacesQuery(input)
+{
+    let query = {
+        Building: { $regex: `^.*${input.Building}.*$`, $options: 'i' }
+    };
+    if (input.hasComputers === 'on') query.Computer = "Yes";
+    if (input.major === 'CSC') query.Major = 'CSC';
+    if (input.hasUndergraduate === 'on') 
+        query.Degree = "Undergrad";
+    else if (input.hasGraduate === 'on') 
+        query.Degree = "Grad";
+    // add null default??
+    if (input.Schedule !== "") {
+        const [startTime12h, endTime12h] = input.Schedule.split(' - ');
+        const startTime24h = convertTo24Hour(startTime12h, 'start');
+        const endTime24h = convertTo24Hour(endTime12h, 'end');
+        console.log(`start time is: ${startTime24h} and end time ${endTime24h}`)
+        query.WeekdayTime = { 
+            $all: [`${startTime24h}:10`, `${endTime24h}:10`] 
+        };
+    }
+    return query
+}
+
+function convertTo24Hour(time12h, range) {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+    if (hours === '12') {
+        hours = '00';
+    }
+    if (modifier === 'pm') {
+        hours = parseInt(hours, 10) + 12;
+    }
+    if (range === 'end') {
+        hours = parseInt(hours, 10) - 1;
+        if (hours < 0) hours = 23;
+    }
+    return `${hours}`;
+}
+
+    // needs col if (input.hasPrinters === 'on') query.hasPrinters = "Yes";
+    // needs col if (input.hasScanner === 'on') query.hasScanner = true;
+    // needs col if (input.hasPhotocopier === 'on') query.hasPhotocopier = true;
+
+    /* col needs to be renamed
+    if (input.airConditioning === 'on') 
+        query.AC = "Yes";
+    else if (input.noConditioning === 'on') 
+        query.AC = "No";
+    */
+
+    // when adding more majors add to regex search of db
 
 router.post('/registerSpace/:id', async (req, res) => {
     const roomId = req.params.id
@@ -126,30 +132,31 @@ router.post('/sendRating/:id/:value', async (req, res) => {
 
     const roomId = req.params.id
     const value = req.params.value
-    const email = req.body.email
+    const email = 'test@gmail.com'
 
-    console.log(`Received rating for ${roomId} with value ${value} with email ${email}`)
+    console.log(`Received rating for ${roomId} with value ${value}`)
 
     try {
         // checking if rating has already existed
-        /*
         const existingRating = await ratings.findOne({ Email: email, RoomID: roomId });
         if (existingRating) {
             return res.status(200).send('You have already registered a rating.');
-        }*/
+            console.log('PREV RATING')
+        }else{
+            console.log('RATING DOES NOT EXIST')
+        }
 
         // created a new rating
-        const newRating = new ratings({ Email: email, RoomID: roomId, Rating: value });
+        const newRating = new ratings({ Email: "testt", RoomID: 'roomId', Rating: 3 });
         await newRating.save();
 
         // fetch all ratings for the specified roomId to calculate the new average
-        const allRatings = await ratings.find({ RoomID: roomId });
+        /*const allRatings = await ratings.find({ RoomID: roomId });
         const totalRatings = allRatings.reduce((acc, curr) => acc + curr.Rating, 0);
         const newAvgRating = totalRatings / allRatings.length;
-        console.log(newAvgRating)
 
         // Update the study space with the new average rating
-        await nooks.findByIdAndUpdate(roomId, { Rating: newAvgRating });
+        await nooks.findByIdAndUpdate(roomId, { Rating: newAvgRating });*/
 
         res.status(200).send(`Rated w/ a ${value}`);
     } catch (error) {
@@ -181,13 +188,4 @@ router.delete('/unregisterSpace/:id', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
-    res.send('Hello World!')
-})
-
-router.get('/secretPage', async (req, res) => {
-    const secretData = { message: 'This is a secret message!' }
-    res.json(secretData)
-})
-
-module.exports = router
+module.exports = {router, convertTo24Hour, buildStudySpacesQuery}
