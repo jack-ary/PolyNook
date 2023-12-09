@@ -11,7 +11,7 @@ For a CalPoly student who needs to find a space to study. PolyNook is a website 
 [Getting started](#getting-started)<br>
 [Scripts](#scripts)<br>
 [File Structure](#file-structure)<br>
-[UML Diagram and Wiki](#(https://github.com/jack-ary/PolyNook/blob/main/wiki.md))
+[UML Diagram and Wiki](#https://github.com/jack-ary/PolyNook/blob/main/wiki.md)
 
 ## User Stories
 
